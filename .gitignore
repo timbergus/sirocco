@@ -1,4 +1,5 @@
 /build
+/src/www/node_modules
 
 # VSCode settings
 
