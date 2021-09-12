@@ -8,6 +8,21 @@ POST http://localhost:3000/home HTTP/1.1
 content-type: application/json
 
 {
-    "name": "Gustavo",
-    "surname": "Muñoz"
+  "name": "Gustavo",
+  "surname": "Muñoz"
 }
+
+### PUT Home
+
+PUT http://localhost:3000/home HTTP/1.1
+content-type: application/json
+
+{
+  "name": "Gustavo",
+  "surname": "Muñoz"
+}
+
+### DELETE Home
+
+DELETE http://localhost:3000/home HTTP/1.1
+content-type: application/json
