@@ -1,4 +1,4 @@
-/build
+/src/server/bin
 /src/www/node_modules
 
 # VSCode settings

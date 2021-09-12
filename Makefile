@@ -1,5 +1,34 @@
-all:
-	clang++ -std=c++2a src/server/main.cpp -o build/main
+CC=clang++
+CFLAGS=-std=c++2a -Werror -Wall -Wextra
+
+APP=sirocco
+SERVER=src/server
+LIBRARY=$(SERVER)/library
+BIN=$(SERVER)/bin
+
+json.o: $(LIBRARY)/json.cpp $(LIBRARY)/json.h
+	$(CC) $(CFLAGS) -c $(LIBRARY)/json.cpp -o $(BIN)/json.o
+
+http.o: $(LIBRARY)/http.cpp $(LIBRARY)/http.h
+	$(CC) $(CFLAGS) -c $(LIBRARY)/http.cpp -o $(BIN)/http.o
+
+response.o: $(LIBRARY)/response.cpp $(LIBRARY)/response.h
+	$(CC) $(CFLAGS) -c $(LIBRARY)/response.cpp -o $(BIN)/response.o
+
+sirocco.o: $(LIBRARY)/sirocco.cpp $(LIBRARY)/sirocco.h
+	$(CC) $(CFLAGS) -c $(LIBRARY)/sirocco.cpp -o $(BIN)/sirocco.o
+
+main.o: $(SERVER)/main.cpp $(SERVER)/actions.h
+	mkdir -p $(BIN)
+	$(CC) $(CFLAGS) -c $(SERVER)/main.cpp -o $(BIN)/main.o
+
+$(APP): main.o sirocco.o response.o http.o json.o
+	$(CC) $(CFLAGS) $(BIN)/main.o $(BIN)/sirocco.o $(BIN)/response.o $(BIN)/http.o $(BIN)/json.o -o $(BIN)/$(APP)
 
 start:
-	./build/main
+	$(BIN)/sirocco
+
+.PHONY: clean
+
+clean:
+	rm -r $(BIN)
