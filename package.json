@@ -1,0 +1,28 @@
+{
+  "name": "sirocco",
+  "version": "1.0.0",
+  "description": "This is a C++ server.",
+  "main": "src/www/index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timbergus/sirocco.git"
+  },
+  "keywords": [
+    "c++",
+    "rest",
+    "server"
+  ],
+  "author": "Gustavo Muñoz <timbergus@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/timbergus/sirocco/issues"
+  },
+  "homepage": "https://timbergus.github.io/sirocco",
+  "private": true
+}

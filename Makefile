@@ -1,5 +1,5 @@
 all:
-	clang++ -std=c++2a main.cpp -o main
+	clang++ -std=c++2a src/server/main.cpp -o build/main
 
 start:
-	./main
+	./build/main
