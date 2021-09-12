@@ -4,3 +4,4 @@
 # VSCode settings
 
 .vscode
+/src/www/.vscode
