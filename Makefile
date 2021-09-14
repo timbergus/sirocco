@@ -1,5 +1,5 @@
 CC=clang++
-CFLAGS=-std=c++2a -Werror -Wall -Wextra
+CFLAGS=-std=c++17 -Werror -Wall -Wextra
 
 APP=sirocco
 SERVER=src/server

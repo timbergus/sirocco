@@ -21,12 +21,11 @@ class Sirocco
 private:
   int REQUEST_MAX_LENGTH{1024};
 
-  std::map<std::string, std::function<void(int)>> handlers;
+  std::map<std::string, std::map<int, std::function<void(int, http_url_t)>>> handlers;
 
   int socket_fd;
   sockaddr_in sockaddr;
   int connection;
-  std::vector<std::string> tokens;
 
   void close_connections();
 
@@ -36,10 +35,8 @@ public:
 
   void listening();
 
-  void get(std::string, std::function<void(int)>);
-  void post(std::string, std::function<void(int)>);
-  void put(std::string, std::function<void(int)>);
-  void del(std::string, std::function<void(int)>);
+  void handle_request(char *);
+  void handle_response(std::string, std::string, std::function<void(int, http_url_t)>);
 };
 
 #endif /* SIROCCO_H */

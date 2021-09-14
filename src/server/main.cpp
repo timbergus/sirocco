@@ -5,13 +5,11 @@ int main()
 {
   Sirocco server(3000);
 
-  server.get("/home", get_home);
-
-  server.post("/home", post_home);
-
-  server.put("/home", put_home);
-
-  server.del("/home", delete_home);
+  server.handle_response("GET", "/home", get_home);
+  server.handle_response("GET", "/home/id", get_home);
+  server.handle_response("POST", "/home", get_home);
+  server.handle_response("PUT", "/home", get_home);
+  server.handle_response("DELETE", "/home", get_home);
 
   server.listening();
 

@@ -55,6 +55,8 @@ void Sirocco::listening()
     exit(EXIT_FAILURE);
   }
 
+  // ************************
+
   char request[REQUEST_MAX_LENGTH];
 
   if (read(connection, request, sizeof(request)) < 0)
@@ -63,37 +65,39 @@ void Sirocco::listening()
     exit(EXIT_FAILURE);
   }
 
-  tokens = Utils::tokenize(request, " ");
-
-  // Launchign callbacks.
-
-  std::cout << "URL: " << tokens[1] << std::endl;
-
-  http_url tokenized_url;
-
-  HTTP::parse_url(tokens[1], &tokenized_url);
-
-  handlers[tokens[0] + "_/" + tokenized_url.path](connection);
+  handle_request(request);
 }
 
-void Sirocco::get(std::string url, std::function<void(int)> callback)
+void Sirocco::handle_request(char *request)
 {
-  handlers["GET_" + url] = callback;
+  // std::cout << "Request: " << request << std::endl;
+
+  std::vector<std::string> tokens;
+
+  Utils::tokenize(request, " ", tokens);
+
+  // std::cout << "VERB: " << tokens[0] << std::endl;
+  // std::cout << "PATH: " << tokens[1] << std::endl;
+
+  http_url_t tk_request;
+
+  HTTP::parse_url(tokens[1], &tk_request);
+
+  // Utils::print_vector("T", tk_request.path);
+
+  handlers[tokens[0] + "_" + tk_request.path[0]][tk_request.path.size() - 1](connection, tk_request);
 }
 
-void Sirocco::post(std::string url, std::function<void(int)> callback)
+void Sirocco::handle_response(std::string verb, std::string response_path, std::function<void(int, http_url_t)> callback)
 {
-  handlers["POST_" + url] = callback;
-}
+  std::vector<std::string> tokens;
+  Utils::tokenize(response_path, "/", tokens);
 
-void Sirocco::put(std::string url, std::function<void(int)> callback)
-{
-  handlers["PUT_" + url] = callback;
-}
+  /* Utils::print_vector("THR", tokens);
 
-void Sirocco::del(std::string url, std::function<void(int)> callback)
-{
-  handlers["DELETE_" + url] = callback;
+  std::cout << "HANDLER: " << verb + "_" + tokens[0] + "_" + std::to_string(tokens.size() - 1) << std::endl; */
+
+  handlers[verb + "_" + tokens[0]][tokens.size() - 1] = callback;
 }
 
 void Sirocco::close_connections()

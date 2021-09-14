@@ -10,11 +10,10 @@
 
 #include "utils.h"
 
-struct http_url
+struct http_url_t
 {
-  std::string path;
-  std::vector<std::string> params;
-  std::vector<std::string> query;
+  std::vector<std::string> path;
+  std::map<std::string, std::string> query;
 };
 
 class HTTP
@@ -70,8 +69,8 @@ public:
   HTTP();
   ~HTTP();
 
-  static void parse_url(std::string, http_url *);
   std::string get_status_message(int);
+  static void parse_url(std::string, http_url_t *);
 };
 
 #endif /* HTTP_H */
