@@ -17,6 +17,8 @@ std::string JSON::stringify(std ::map<std::string, std::string> json)
     result += "\"" + it->first + "\":\"" + it->second + "\",";
   }
 
+  result.pop_back();
+
   result += "}";
 
   return result;
