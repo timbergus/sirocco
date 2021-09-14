@@ -1,6 +1,6 @@
 #include "sirocco.h"
 
-sirocco::Sirocco::Sirocco(int port)
+Sirocco::Sirocco(int port)
 {
   // First we need to define the socket. This is the file descriptor.
 
@@ -28,16 +28,14 @@ sirocco::Sirocco::Sirocco(int port)
   }
 }
 
-sirocco::Sirocco::~Sirocco()
+Sirocco::~Sirocco()
 {
   close_connections();
 }
 
-void sirocco::Sirocco::listening()
+void Sirocco::listening()
 {
-  int listening = listen(socket_fd, 10);
-
-  if (listening < 0)
+  if (listen(socket_fd, 10) < 0)
   {
     std::cout << "Failed to listen on socket. errno: " << errno << std::endl;
     exit(EXIT_FAILURE);
@@ -49,69 +47,56 @@ void sirocco::Sirocco::listening()
 
   unsigned long addrlen = sizeof(sockaddr);
 
-  std::cout << "Waiting for connection..." << std::endl;
-
   connection = accept(socket_fd, (struct sockaddr *)&sockaddr, (socklen_t *)&addrlen);
 
   if (connection < 0)
   {
-    std::cout << "Failed to grab connection. errno: " << errno << std::endl;
+    std::cout << "Failed to grab connection." << std::endl;
     exit(EXIT_FAILURE);
   }
 
-  std::cout << "Connected" << std::endl;
-
   char request[REQUEST_MAX_LENGTH];
 
-  int bytes_read = read(connection, request, sizeof(request));
+  if (read(connection, request, sizeof(request)) < 0)
+  {
+    std::cout << "Failed reading the message." << std::endl;
+    exit(EXIT_FAILURE);
+  }
 
-  parse_request(request);
-
-  std::cout << "Bytes read: " << bytes_read << std::endl;
-  std::cout << "The message was: " << request << std::endl;
+  tokens = Utils::tokenize(request, " ");
 
   // Launchign callbacks.
 
-  handlers[tokens[0] + "_" + tokens[1]](connection);
+  std::cout << "URL: " << tokens[1] << std::endl;
 
-  std::cout << "Done!" << std::endl;
+  http_url tokenized_url;
+
+  HTTP::parse_url(tokens[1], &tokenized_url);
+
+  handlers[tokens[0] + "_/" + tokenized_url.path](connection);
 }
 
-void sirocco::Sirocco::parse_request(char *response)
-{
-  char *token = strtok(response, " ");
-
-  while (token != NULL)
-  {
-    tokens.push_back(token);
-    token = strtok(NULL, " ");
-  }
-
-  std::cout << "The verb is: " << tokens[0] << std::endl;
-  std::cout << "The URL is: " << tokens[1] << std::endl;
-}
-
-void sirocco::Sirocco::get(std::string url, std::function<void(int)> callback)
+void Sirocco::get(std::string url, std::function<void(int)> callback)
 {
   handlers["GET_" + url] = callback;
 }
 
-void sirocco::Sirocco::post(std::string url, std::function<void(int)> callback)
+void Sirocco::post(std::string url, std::function<void(int)> callback)
 {
   handlers["POST_" + url] = callback;
 }
 
-void sirocco::Sirocco::put(std::string url, std::function<void(int)> callback)
+void Sirocco::put(std::string url, std::function<void(int)> callback)
 {
   handlers["PUT_" + url] = callback;
 }
 
-void sirocco::Sirocco::del(std::string url, std::function<void(int)> callback)
+void Sirocco::del(std::string url, std::function<void(int)> callback)
 {
   handlers["DELETE_" + url] = callback;
 }
 
-void sirocco::Sirocco::close_connections()
+void Sirocco::close_connections()
 {
   close(connection);
   close(socket_fd);

@@ -1,6 +1,6 @@
 ### GET Home
 
-GET http://localhost:3000/home HTTP/1.1
+GET http://localhost:3000/home/42?key=1234567&hash=890 HTTP/1.1
 
 ### POST Home
 

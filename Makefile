@@ -6,6 +6,9 @@ SERVER=src/server
 LIBRARY=$(SERVER)/library
 BIN=$(SERVER)/bin
 
+utils.o: $(LIBRARY)/utils.cpp $(LIBRARY)/utils.h
+	$(CC) $(CFLAGS) -c $(LIBRARY)/utils.cpp -o $(BIN)/utils.o
+
 json.o: $(LIBRARY)/json.cpp $(LIBRARY)/json.h
 	$(CC) $(CFLAGS) -c $(LIBRARY)/json.cpp -o $(BIN)/json.o
 
@@ -22,8 +25,8 @@ main.o: $(SERVER)/main.cpp $(SERVER)/actions.h
 	mkdir -p $(BIN)
 	$(CC) $(CFLAGS) -c $(SERVER)/main.cpp -o $(BIN)/main.o
 
-$(APP): main.o sirocco.o response.o http.o json.o
-	$(CC) $(CFLAGS) $(BIN)/main.o $(BIN)/sirocco.o $(BIN)/response.o $(BIN)/http.o $(BIN)/json.o -o $(BIN)/$(APP)
+$(APP): main.o sirocco.o response.o http.o json.o utils.o
+	$(CC) $(CFLAGS) $(BIN)/main.o $(BIN)/sirocco.o $(BIN)/response.o $(BIN)/http.o $(BIN)/json.o $(BIN)/utils.o -o $(BIN)/$(APP)
 
 start:
 	$(BIN)/sirocco

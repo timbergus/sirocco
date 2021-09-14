@@ -13,34 +13,33 @@
 #include <functional>
 #include <map>
 
-namespace sirocco
+#include "http.h"
+#include "utils.h"
+
+class Sirocco
 {
+private:
+  int REQUEST_MAX_LENGTH{1024};
 
-  class Sirocco
-  {
-  private:
-    int REQUEST_MAX_LENGTH = 1024;
+  std::map<std::string, std::function<void(int)>> handlers;
 
-    std::map<std::string, std::function<void(int)>> handlers;
+  int socket_fd;
+  sockaddr_in sockaddr;
+  int connection;
+  std::vector<std::string> tokens;
 
-    int socket_fd;
-    sockaddr_in sockaddr;
-    int connection;
-    std::vector<std::string> tokens;
+  void close_connections();
 
-    void close_connections();
+public:
+  Sirocco(int);
+  ~Sirocco();
 
-  public:
-    Sirocco(int);
-    ~Sirocco();
+  void listening();
 
-    void listening();
-    void parse_request(char *);
-    void get(std::string, std::function<void(int)>);
-    void post(std::string, std::function<void(int)>);
-    void put(std::string, std::function<void(int)>);
-    void del(std::string, std::function<void(int)>);
-  };
-} // namespace sirocco
+  void get(std::string, std::function<void(int)>);
+  void post(std::string, std::function<void(int)>);
+  void put(std::string, std::function<void(int)>);
+  void del(std::string, std::function<void(int)>);
+};
 
 #endif /* SIROCCO_H */

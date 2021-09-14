@@ -3,7 +3,7 @@
 
 int main()
 {
-  sirocco::Sirocco server(3000);
+  Sirocco server(3000);
 
   server.get("/home", get_home);
 

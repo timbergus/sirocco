@@ -1,15 +1,15 @@
 #include "response.h"
 
-sirocco::Response::Response(int connection)
+Response::Response(int connection)
 {
   this->connection = connection;
 }
 
-sirocco::Response::~Response()
+Response::~Response()
 {
 }
 
-std::string sirocco::Response::compose(std::string content)
+std::string Response::compose(std::string content)
 {
   char buffer[500];
 
@@ -23,28 +23,28 @@ std::string sirocco::Response::compose(std::string content)
   return buffer;
 }
 
-void sirocco::Response::set_status(int status)
+void Response::set_status(int status)
 {
-  sirocco::HTTP http;
+  HTTP http;
   http_response.status_code = status;
   http_response.status_message = http.get_status_message(status);
 }
 
-void sirocco::Response::send_text(std::string message)
+void Response::send_text(std::string message)
 {
   http_response.content_type = "Content-Type: text/plain";
   std::string response = compose(message);
   send(connection, response.c_str(), response.size(), 0);
 }
 
-void sirocco::Response::send_json(std::string message)
+void Response::send_json(std::string message)
 {
   http_response.content_type = "Content-Type: application/json";
   std::string response = compose(message);
   send(connection, response.c_str(), response.size(), 0);
 }
 
-void sirocco::Response::send_html(std::string message)
+void Response::send_html(std::string message)
 {
   http_response.content_type = "Content-Type: text/html";
   std::string response = compose(message);

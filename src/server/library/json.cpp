@@ -1,14 +1,14 @@
 #include "json.h"
 
-sirocco::JSON::JSON()
+JSON::JSON()
 {
 }
 
-sirocco::JSON::~JSON()
+JSON::~JSON()
 {
 }
 
-std::string sirocco::JSON::stringify(std ::map<std::string, std::string> json)
+std::string JSON::stringify(std ::map<std::string, std::string> json)
 {
   std::string result = "{";
 

@@ -7,17 +7,14 @@
 #include <string>
 #include <iostream>
 
-namespace sirocco
+class JSON
 {
-  class JSON
-  {
-  private:
-  public:
-    JSON();
-    ~JSON();
+private:
+public:
+  JSON();
+  ~JSON();
 
-    static std::string stringify(std::map<std::string, std::string>);
-  };
-} // namespace sirocco
+  static std::string stringify(std::map<std::string, std::string>);
+};
 
 #endif /* JSON_H */

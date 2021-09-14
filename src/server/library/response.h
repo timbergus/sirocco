@@ -10,31 +10,28 @@
 
 #include "http.h"
 
-namespace sirocco
+class Response
 {
-  class Response
+private:
+  int connection;
+  struct http_response_struct
   {
-  private:
-    int connection;
-    struct http_response_struct
-    {
-      std::string protocol = "HTTP/1.1";
-      int status_code;
-      std::string status_message;
-      std::string content_type;
-    } http_response;
+    std::string protocol = "HTTP/1.1";
+    int status_code;
+    std::string status_message;
+    std::string content_type;
+  } http_response;
 
-    std::string compose(std::string);
+  std::string compose(std::string);
 
-  public:
-    Response(int);
-    ~Response();
+public:
+  Response(int);
+  ~Response();
 
-    void set_status(int);
-    void send_text(std::string);
-    void send_json(std::string);
-    void send_html(std::string);
-  };
-} // namespace sirocco
+  void set_status(int);
+  void send_text(std::string);
+  void send_json(std::string);
+  void send_html(std::string);
+};
 
 #endif /* RESPONSE_H */
