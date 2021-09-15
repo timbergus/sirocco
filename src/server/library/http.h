@@ -6,9 +6,6 @@
 #include <map>
 #include <string>
 #include <vector>
-#include <iostream>
-
-#include "utils.h"
 
 struct http_url_t
 {
@@ -70,7 +67,6 @@ public:
   ~HTTP();
 
   std::string get_status_message(int);
-  static void parse_url(std::string, http_url_t *);
 };
 
 #endif /* HTTP_H */

@@ -60,11 +60,13 @@ void Comm::accept_connection()
 
 void Comm::read_request()
 {
-  if (read(connection, request, sizeof(request)) < 0)
+  if (read(connection, request.as_string, sizeof(request.as_string)) < 0)
   {
     std::cout << "Failed reading the message." << std::endl;
     exit(EXIT_FAILURE);
   }
+
+  request.parse_request();
 }
 
 void Comm::send_text(std::string message)

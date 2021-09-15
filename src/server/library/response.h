@@ -13,7 +13,7 @@
 class Response
 {
 private:
-  struct http_response_struct
+  struct http_response_t
   {
     std::string protocol = "HTTP/1.1";
     int status_code;

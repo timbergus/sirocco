@@ -11,6 +11,7 @@
 // read request
 #include <unistd.h>
 
+#include "request.h"
 #include "response.h"
 
 class Comm
@@ -24,8 +25,7 @@ public:
   int connection;
   sockaddr_in sockaddr;
 
-  char request[1024];
-
+  Request request;
   Response response;
 
   Comm(/* args */);

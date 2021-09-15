@@ -20,7 +20,7 @@ class Sirocco
 private:
   Comm comm;
 
-  std::map<std::string, std::map<int, std::function<void(Comm, http_url_t)>>> handlers;
+  std::map<std::string, std::map<int, std::function<void(Comm)>>> handlers;
 
 public:
   Sirocco(int);
@@ -28,14 +28,14 @@ public:
 
   void listening();
 
-  void handle_request(char *);
+  void respond();
 
-  void handle_response(std::string, std::string, std::function<void(Comm, http_url_t)>);
+  void handle_response(std::string, std::string, std::function<void(Comm)>);
 
-  void get(std::string, std::function<void(Comm, http_url_t)>);
-  void post(std::string, std::function<void(Comm, http_url_t)>);
-  void put(std::string, std::function<void(Comm, http_url_t)>);
-  void del(std::string, std::function<void(Comm, http_url_t)>);
+  void get(std::string, std::function<void(Comm)>);
+  void post(std::string, std::function<void(Comm)>);
+  void put(std::string, std::function<void(Comm)>);
+  void del(std::string, std::function<void(Comm)>);
 };
 
 #endif /* SIROCCO_H */
