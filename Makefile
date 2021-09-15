@@ -1,38 +1,32 @@
 CC=clang++
 CFLAGS=-std=c++17 -Werror -Wall -Wextra
 
-APP=sirocco
-SERVER=src/server
-LIBRARY=$(SERVER)/library
-BIN=$(SERVER)/bin
+TARGET=sirocco
+ROOT=src/server
+LIBRARY=$(ROOT)/library
+BIN=$(ROOT)/bin
 
-comm.o: $(LIBRARY)/comm.cpp $(LIBRARY)/comm.h
-	$(CC) $(CFLAGS) -c $(LIBRARY)/comm.cpp -o $(BIN)/comm.o
+OBJS=	$(BIN)/comm.o		\
+		$(BIN)/utils.o		\
+		$(BIN)/json.o		\
+		$(BIN)/http.o		\
+		$(BIN)/response.o	\
+		$(BIN)/request.o	\
+		$(BIN)/sirocco.o	\
+		$(BIN)/main.o
 
-utils.o: $(LIBRARY)/utils.cpp $(LIBRARY)/utils.h
-	$(CC) $(CFLAGS) -c $(LIBRARY)/utils.cpp -o $(BIN)/utils.o
+$(BIN)/%.o: $(LIBRARY)/%.cpp
+	@mkdir -p $(BIN)
+	$(CC) $(CFLAGS) -c -MD $< -o $@
 
-json.o: $(LIBRARY)/json.cpp $(LIBRARY)/json.h
-	$(CC) $(CFLAGS) -c $(LIBRARY)/json.cpp -o $(BIN)/json.o
+$(BIN)/%.o: $(ROOT)/%.cpp
+	@mkdir -p $(BIN)
+	$(CC) $(CFLAGS) -c -MD $< -o $@
 
-http.o: $(LIBRARY)/http.cpp $(LIBRARY)/http.h
-	$(CC) $(CFLAGS) -c $(LIBRARY)/http.cpp -o $(BIN)/http.o
+$(TARGET): $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) -o $(BIN)/$(TARGET)
 
-response.o: $(LIBRARY)/response.cpp $(LIBRARY)/response.h
-	$(CC) $(CFLAGS) -c $(LIBRARY)/response.cpp -o $(BIN)/response.o
-
-request.o: $(LIBRARY)/request.cpp $(LIBRARY)/request.h
-	$(CC) $(CFLAGS) -c $(LIBRARY)/request.cpp -o $(BIN)/request.o
-
-sirocco.o: $(LIBRARY)/sirocco.cpp $(LIBRARY)/sirocco.h
-	$(CC) $(CFLAGS) -c $(LIBRARY)/sirocco.cpp -o $(BIN)/sirocco.o
-
-main.o: $(SERVER)/main.cpp $(SERVER)/actions.h
-	mkdir -p $(BIN)
-	$(CC) $(CFLAGS) -c $(SERVER)/main.cpp -o $(BIN)/main.o
-
-$(APP): main.o sirocco.o request.o response.o http.o json.o utils.o comm.o
-	$(CC) $(CFLAGS) $(BIN)/main.o $(BIN)/sirocco.o $(BIN)/request.o $(BIN)/response.o $(BIN)/http.o $(BIN)/json.o $(BIN)/utils.o $(BIN)/comm.o -o $(BIN)/$(APP)
+-include $(BIN)/*.d
 
 start:
 	$(BIN)/sirocco

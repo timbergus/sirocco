@@ -11,6 +11,7 @@
 class Request
 {
 private:
+  /* data */
 public:
   char as_string[1024];
 

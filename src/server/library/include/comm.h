@@ -17,8 +17,7 @@
 class Comm
 {
 private:
-  // Private properties and methods.
-
+  /* data */
 public:
   int port;
   int socket_fd;
