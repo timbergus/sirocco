@@ -1,5 +1,4 @@
-#include "actions.h"
-#include "library/sirocco.h"
+#include "main.h"
 
 int main()
 {

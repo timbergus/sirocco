@@ -25,6 +25,8 @@ public:
   int connection;
   sockaddr_in sockaddr;
 
+  // Constructor.
+
   Request request;
   Response response;
 
