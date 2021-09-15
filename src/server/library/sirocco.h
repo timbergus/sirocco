@@ -4,9 +4,6 @@
 #define SIROCCO_H
 
 #include <iostream>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <unistd.h>
 #include <string.h>
 #include <vector>
 #include <stdio.h>
@@ -15,19 +12,14 @@
 
 #include "http.h"
 #include "utils.h"
+#include "comm.h"
 
 class Sirocco
 {
 private:
-  int REQUEST_MAX_LENGTH{1024};
+  Comm comm;
 
   std::map<std::string, std::map<int, std::function<void(int, http_url_t)>>> handlers;
-
-  int socket_fd;
-  sockaddr_in sockaddr;
-  int connection;
-
-  void close_connections();
 
 public:
   Sirocco(int);
@@ -36,7 +28,13 @@ public:
   void listening();
 
   void handle_request(char *);
+
   void handle_response(std::string, std::string, std::function<void(int, http_url_t)>);
+
+  void get(std::string, std::function<void(int, http_url_t)>);
+  void post(std::string, std::function<void(int, http_url_t)>);
+  void put(std::string, std::function<void(int, http_url_t)>);
+  void del(std::string, std::function<void(int, http_url_t)>);
 };
 
 #endif /* SIROCCO_H */
