@@ -1,8 +1,7 @@
 #include "response.h"
 
-Response::Response(int connection)
+Response::Response()
 {
-  this->connection = connection;
 }
 
 Response::~Response()
@@ -30,23 +29,7 @@ void Response::set_status(int status)
   http_response.status_message = http.get_status_message(status);
 }
 
-void Response::send_text(std::string message)
+void Response::set_content_type(std::string content_type)
 {
-  http_response.content_type = "Content-Type: text/plain";
-  std::string response = compose(message);
-  send(connection, response.c_str(), response.size(), 0);
-}
-
-void Response::send_json(std::string message)
-{
-  http_response.content_type = "Content-Type: application/json";
-  std::string response = compose(message);
-  send(connection, response.c_str(), response.size(), 0);
-}
-
-void Response::send_html(std::string message)
-{
-  http_response.content_type = "Content-Type: text/html";
-  std::string response = compose(message);
-  send(connection, response.c_str(), response.size(), 0);
+  http_response.content_type = content_type;
 }

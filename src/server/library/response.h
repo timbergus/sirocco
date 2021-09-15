@@ -13,7 +13,6 @@
 class Response
 {
 private:
-  int connection;
   struct http_response_struct
   {
     std::string protocol = "HTTP/1.1";
@@ -22,16 +21,14 @@ private:
     std::string content_type;
   } http_response;
 
-  std::string compose(std::string);
-
 public:
-  Response(int);
+  Response();
   ~Response();
 
   void set_status(int);
-  void send_text(std::string);
-  void send_json(std::string);
-  void send_html(std::string);
+  void set_content_type(std::string);
+
+  std::string compose(std::string);
 };
 
 #endif /* RESPONSE_H */

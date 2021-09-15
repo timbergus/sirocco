@@ -67,6 +67,27 @@ void Comm::read_request()
   }
 }
 
+void Comm::send_text(std::string message)
+{
+  response.set_content_type("Content-Type: text/plain");
+  std::string msg = response.compose(message);
+  send(connection, msg.c_str(), msg.size(), 0);
+}
+
+void Comm::send_json(std::string message)
+{
+  response.set_content_type("Content-Type: application/json");
+  std::string msg = response.compose(message);
+  send(connection, msg.c_str(), msg.size(), 0);
+}
+
+void Comm::send_html(std::string message)
+{
+  response.set_content_type("Content-Type: text/html");
+  std::string msg = response.compose(message);
+  send(connection, msg.c_str(), msg.size(), 0);
+}
+
 void Comm::close_connection()
 {
   close(connection);

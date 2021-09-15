@@ -11,9 +11,13 @@
 // read request
 #include <unistd.h>
 
+#include "response.h"
+
 class Comm
 {
 private:
+  // Private properties and methods.
+
 public:
   int port;
   int socket_fd;
@@ -21,6 +25,8 @@ public:
   sockaddr_in sockaddr;
 
   char request[1024];
+
+  Response response;
 
   Comm(/* args */);
   ~Comm();
@@ -30,6 +36,12 @@ public:
   void listen_connection();
   void accept_connection();
   void read_request();
+
+  // Response
+  void send_text(std::string);
+  void send_json(std::string);
+  void send_html(std::string);
+
   void close_connection();
   void close_socket();
 };

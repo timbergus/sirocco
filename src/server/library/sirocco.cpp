@@ -42,10 +42,18 @@ void Sirocco::handle_request(char *request)
 
   // Utils::print_vector("T", tk_request.path);
 
-  handlers[tokens[0] + "_" + tk_request.path[0]][tk_request.path.size() - 1](comm.connection, tk_request);
+  try
+  {
+    handlers[tokens[0] + "_" + tk_request.path[0]][tk_request.path.size() - 1](comm, tk_request);
+  }
+  catch (const std::exception &e)
+  {
+    comm.response.set_status(501);
+    comm.send_html("<h1>501 Not Implemented</h1>");
+  }
 }
 
-void Sirocco::handle_response(std::string verb, std::string response_path, std::function<void(int, http_url_t)> callback)
+void Sirocco::handle_response(std::string verb, std::string response_path, std::function<void(Comm, http_url_t)> callback)
 {
   std::vector<std::string> tokens;
   Utils::tokenize(response_path, "/", tokens);
@@ -57,22 +65,22 @@ void Sirocco::handle_response(std::string verb, std::string response_path, std::
   handlers[verb + "_" + tokens[0]][tokens.size() - 1] = callback;
 }
 
-void Sirocco::get(std::string response_path, std::function<void(int, http_url_t)> callback)
+void Sirocco::get(std::string response_path, std::function<void(Comm, http_url_t)> callback)
 {
   handle_response("GET", response_path, callback);
 }
 
-void Sirocco::post(std::string response_path, std::function<void(int, http_url_t)> callback)
+void Sirocco::post(std::string response_path, std::function<void(Comm, http_url_t)> callback)
 {
   handle_response("POST", response_path, callback);
 }
 
-void Sirocco::put(std::string response_path, std::function<void(int, http_url_t)> callback)
+void Sirocco::put(std::string response_path, std::function<void(Comm, http_url_t)> callback)
 {
   handle_response("PUT", response_path, callback);
 }
 
-void Sirocco::del(std::string response_path, std::function<void(int, http_url_t)> callback)
+void Sirocco::del(std::string response_path, std::function<void(Comm, http_url_t)> callback)
 {
   handle_response("DELETE", response_path, callback);
 }
