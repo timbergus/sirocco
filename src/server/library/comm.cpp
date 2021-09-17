@@ -92,16 +92,16 @@ void Comm::send_html(std::string message)
 
 void Comm::send_not_implemented()
 {
-  response.set_content_type("text/html");
   response.set_status_code(501);
+  response.set_content_type("text/html");
   std::string msg = response.compose_response("<h1>501 Not Implemented</h1>");
   send(connection, msg.c_str(), msg.size(), 0);
 }
 
 void Comm::send_server_error()
 {
-  response.set_content_type("text/html");
   response.set_status_code(500);
+  response.set_content_type("text/html");
   std::string msg = response.compose_response("<h1>500 Server Error</h1>");
   send(connection, msg.c_str(), msg.size(), 0);
 }

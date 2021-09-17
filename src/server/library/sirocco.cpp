@@ -40,7 +40,28 @@ void Sirocco::respond()
   }
   catch (const std::exception &e)
   {
-    comm.send_not_implemented();
+    // If we have an error that means that we could bb requested a file.
+    // So we check if the request has the extension, and we send the file.
+
+    // TODO #4 Clean this part.
+
+    std::size_t found = comm.request.as_tokens.path[0].find(".css");
+
+    if (found != std::string::npos)
+    {
+      std::string file;
+
+      Utils::read_file("src/server/public/" + comm.request.as_tokens.path[0], file);
+
+      comm.response.set_status_code(200);
+      comm.response.set_content_type("text/css");
+      std::string msg = comm.response.compose_response(file);
+      send(comm.connection, msg.c_str(), msg.size(), 0);
+    }
+    else
+    {
+      comm.send_not_implemented();
+    }
   }
 }
 
