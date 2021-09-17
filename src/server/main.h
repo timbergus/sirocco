@@ -9,7 +9,7 @@ std::function<void(Comm)> get_home = [](Comm comm)
 {
   std::string file;
 
-  Utils::read_file("src/server/pages/index.html", file);
+  Utils::read_file("src/server/public/index.html", file);
 
   comm.response.set_status_code(200);
   comm.send_html(file);
