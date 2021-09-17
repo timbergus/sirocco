@@ -22,12 +22,8 @@ void Sirocco::listening()
   while (true)
   {
     comm.accept_connection();
-
     comm.read_request();
-
     respond();
-
-    comm.close_connection();
   }
 }
 
@@ -39,8 +35,7 @@ void Sirocco::respond()
   }
   catch (const std::exception &e)
   {
-    comm.response.set_status(501);
-    comm.send_html("<h1>501 Not Implemented</h1>");
+    comm.send_not_implemented();
   }
 }
 
@@ -64,6 +59,11 @@ void Sirocco::post(std::string request_path, std::function<void(Comm)> callback)
 void Sirocco::put(std::string request_path, std::function<void(Comm)> callback)
 {
   handle_response("PUT", request_path, callback);
+}
+
+void Sirocco::patch(std::string request_path, std::function<void(Comm)> callback)
+{
+  handle_response("PATCH", request_path, callback);
 }
 
 void Sirocco::del(std::string request_path, std::function<void(Comm)> callback)

@@ -71,22 +71,38 @@ void Comm::read_request()
 
 void Comm::send_text(std::string message)
 {
-  response.set_content_type("Content-Type: text/plain");
-  std::string msg = response.compose(message);
+  response.set_content_type("text/plain");
+  std::string msg = response.compose_response(message);
   send(connection, msg.c_str(), msg.size(), 0);
 }
 
 void Comm::send_json(std::string message)
 {
-  response.set_content_type("Content-Type: application/json");
-  std::string msg = response.compose(message);
+  response.set_content_type("application/json");
+  std::string msg = response.compose_response(message);
   send(connection, msg.c_str(), msg.size(), 0);
 }
 
 void Comm::send_html(std::string message)
 {
-  response.set_content_type("Content-Type: text/html");
-  std::string msg = response.compose(message);
+  response.set_content_type("text/html");
+  std::string msg = response.compose_response(message);
+  send(connection, msg.c_str(), msg.size(), 0);
+}
+
+void Comm::send_not_implemented()
+{
+  response.set_content_type("text/html");
+  response.set_status_code(501);
+  std::string msg = response.compose_response("<h1>501 Not Implemented</h1>");
+  send(connection, msg.c_str(), msg.size(), 0);
+}
+
+void Comm::send_server_error()
+{
+  response.set_content_type("text/html");
+  response.set_status_code(500);
+  std::string msg = response.compose_response("<h1>500 Server Error</h1>");
   send(connection, msg.c_str(), msg.size(), 0);
 }
 

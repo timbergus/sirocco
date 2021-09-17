@@ -35,6 +35,7 @@ public:
   void get(std::string, std::function<void(Comm)>);
   void post(std::string, std::function<void(Comm)>);
   void put(std::string, std::function<void(Comm)>);
+  void patch(std::string, std::function<void(Comm)>);
   void del(std::string, std::function<void(Comm)>);
 };
 

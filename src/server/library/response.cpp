@@ -8,21 +8,26 @@ Response::~Response()
 {
 }
 
-std::string Response::compose(std::string content)
+std::string Response::compose_response(std::string content)
 {
-  char buffer[500];
+  char buffer[1024];
 
-  sprintf(buffer, "%s %d %s\n%s\n\n%s",
+  http_response.content_length = content.size();
+  http_response.connection_status = "close";
+
+  sprintf(buffer, "%s %d %s\nContent-Type: %s\nContent-Length: %d\nConnection: %s\n\n%s",
           http_response.protocol.c_str(),
           http_response.status_code,
           http_response.status_message.c_str(),
           http_response.content_type.c_str(),
+          http_response.content_length,
+          http_response.connection_status.c_str(),
           content.c_str());
 
   return buffer;
 }
 
-void Response::set_status(int status)
+void Response::set_status_code(int status)
 {
   HTTP http;
   http_response.status_code = status;

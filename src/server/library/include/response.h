@@ -19,16 +19,18 @@ private:
     int status_code;
     std::string status_message;
     std::string content_type;
+    int content_length;
+    std::string connection_status;
   } http_response;
 
 public:
   Response();
   ~Response();
 
-  void set_status(int);
+  void set_status_code(int);
   void set_content_type(std::string);
 
-  std::string compose(std::string);
+  std::string compose_response(std::string);
 };
 
 #endif /* RESPONSE_H */

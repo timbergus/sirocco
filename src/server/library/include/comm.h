@@ -43,6 +43,9 @@ public:
   void send_json(std::string);
   void send_html(std::string);
 
+  void send_not_implemented();
+  void send_server_error();
+
   void close_connection();
   void close_socket();
 };

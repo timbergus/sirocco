@@ -4,11 +4,11 @@ int main()
 {
   Sirocco server(3000);
 
-  server.get("/home", get_home);
-  server.get("/home/id", get_home);
-  server.post("/home", post_home);
-  server.put("/home", put_home);
-  server.del("/home", delete_home);
+  // server.get("/", get_home);
+  server.get("/secure/id", get_secure);
+  server.post("/secure", post_secure);
+  server.put("/secure", put_secure);
+  server.del("/secure", delete_secure);
 
   server.listening();
 

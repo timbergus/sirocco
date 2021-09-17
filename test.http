@@ -1,28 +1,34 @@
 ### GET Home
 
-GET http://localhost:3000/home/42?key=1234567&hash=890 HTTP/1.1
+GET http://localhost:3000 HTTP/1.1
 
-### POST Home
+### GET Secure
 
-POST http://localhost:3000/home HTTP/1.1
+GET http://localhost:3000/secure/42?key=1234567&hash=890 HTTP/1.1
+
+### POST Secure
+
+POST http://localhost:3000/secure HTTP/1.1
 content-type: application/json
 
 {
-  "name": "Gustavo",
-  "surname": "Muñoz"
+  "hello": "world"
 }
 
-### PUT Home
+### PUT Secure
 
-PUT http://localhost:3000/home HTTP/1.1
+PUT http://localhost:3000/secure HTTP/1.1
 content-type: application/json
 
 {
-  "name": "Gustavo",
-  "surname": "Muñoz"
+  "hello": "world"
 }
 
-### DELETE Home
+### DELETE Secure
 
-DELETE http://localhost:3000/home HTTP/1.1
+DELETE http://localhost:3000/secure HTTP/1.1
 content-type: application/json
+
+{
+  "hello": "world"
+}
