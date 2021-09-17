@@ -6,14 +6,14 @@ ROOT=src/server
 LIBRARY=$(ROOT)/library
 BIN=$(ROOT)/bin
 
-OBJS=	$(BIN)/comm.o		\
-		$(BIN)/utils.o		\
-		$(BIN)/json.o		\
-		$(BIN)/http.o		\
-		$(BIN)/response.o	\
-		$(BIN)/request.o	\
+OBJS=	$(BIN)/main.o		\
 		$(BIN)/sirocco.o	\
-		$(BIN)/main.o
+		$(BIN)/request.o	\
+		$(BIN)/response.o	\
+		$(BIN)/comm.o		\
+		$(BIN)/http.o		\
+		$(BIN)/json.o		\
+		$(BIN)/utils.o		\
 
 $(BIN)/%.o: $(LIBRARY)/%.cpp
 	@mkdir -p $(BIN)
@@ -29,7 +29,7 @@ $(TARGET): $(OBJS)
 -include $(BIN)/*.d
 
 start:
-	$(BIN)/sirocco
+	$(BIN)/$(TARGET)
 
 .PHONY: clean
 

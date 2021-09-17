@@ -16,13 +16,19 @@ Sirocco::~Sirocco()
 void Sirocco::listening()
 {
   comm.listen_connection();
-  comm.accept_connection();
 
   // ************************
 
-  comm.read_request();
+  while (true)
+  {
+    comm.accept_connection();
 
-  respond();
+    comm.read_request();
+
+    respond();
+
+    comm.close_connection();
+  }
 }
 
 void Sirocco::respond()
