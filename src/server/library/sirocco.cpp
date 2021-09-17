@@ -31,7 +31,12 @@ void Sirocco::respond()
 {
   try
   {
-    handlers[comm.request.verb + "_" + comm.request.as_tokens.path[0]][comm.request.as_tokens.path.size() - 1](comm);
+    std::string base = "";
+
+    if (comm.request.as_tokens.path.size() > 0)
+      base = comm.request.as_tokens.path[0];
+
+    handlers[comm.request.verb + "_" + base][comm.request.as_tokens.path.size() - 1](comm);
   }
   catch (const std::exception &e)
   {
@@ -43,7 +48,13 @@ void Sirocco::handle_response(std::string verb, std::string request_path, std::f
 {
   std::vector<std::string> tokens;
   Utils::tokenize(request_path, "/", tokens);
-  handlers[verb + "_" + tokens[0]][tokens.size() - 1] = callback;
+
+  std::string base = "";
+
+  if (tokens.size() > 0)
+    base = tokens[0];
+
+  handlers[verb + "_" + base][tokens.size() - 1] = callback;
 }
 
 void Sirocco::get(std::string request_path, std::function<void(Comm)> callback)

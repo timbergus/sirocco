@@ -3,11 +3,16 @@
 #include "library/include/sirocco.h"
 #include "library/include/json.h"
 #include "library/include/comm.h"
+#include "library/include/utils.h"
 
 std::function<void(Comm)> get_home = [](Comm comm)
 {
+  std::string file;
+
+  Utils::read_file("src/server/pages/index.html", file);
+
   comm.response.set_status_code(200);
-  comm.send_html("<h1>Welcome to Sirocco!</h1>");
+  comm.send_html(file);
 };
 
 std::function<void(Comm)> get_secure = [](Comm comm)

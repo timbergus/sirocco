@@ -73,3 +73,24 @@ std::string Utils::print_map(std::map<std::string, std::string> tokens)
 
   return result;
 }
+
+void Utils::read_file(std::string file_name, std::string &contents)
+{
+  std::ifstream file(file_name);
+
+  std::string line;
+
+  if (file.is_open())
+  {
+    while (std::getline(file, line))
+    {
+      contents += "\n";
+      contents += line;
+    }
+    file.close();
+  }
+  else
+  {
+    std::cout << "Error reading file!" << std::endl;
+  }
+}

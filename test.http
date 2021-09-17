@@ -4,7 +4,7 @@ GET http://localhost:3000 HTTP/1.1
 
 ### GET Secure
 
-GET http://localhost:3000/secure/42?key=1234567&hash=890 HTTP/1.1
+GET http://localhost:3000/secure?key=1234567&hash=890 HTTP/1.1
 
 ### POST Secure
 
@@ -17,7 +17,7 @@ content-type: application/json
 
 ### PUT Secure
 
-PUT http://localhost:3000/secure HTTP/1.1
+PUT http://localhost:3000/secure/42 HTTP/1.1
 content-type: application/json
 
 {
@@ -26,7 +26,7 @@ content-type: application/json
 
 ### DELETE Secure
 
-DELETE http://localhost:3000/secure HTTP/1.1
+DELETE http://localhost:3000/secure/42 HTTP/1.1
 content-type: application/json
 
 {

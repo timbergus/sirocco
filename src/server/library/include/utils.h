@@ -7,6 +7,7 @@
 #include <map>
 #include <vector>
 #include <string>
+#include <fstream>
 
 class Utils
 {
@@ -22,6 +23,9 @@ public:
   static std::string print_vector(std::vector<std::string>);
   static void print_map(std::string, std::map<std::string, std::string>);
   static std::string print_map(std::map<std::string, std::string>);
+
+  // Static files
+  static void read_file(std::string, std::string &);
 };
 
 #endif /* UTILS_H */
