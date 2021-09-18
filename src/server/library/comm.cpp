@@ -8,6 +8,11 @@ Comm::~Comm()
 {
 }
 
+void Comm::set_public_path(std::string public_path)
+{
+  this->public_path = public_path;
+}
+
 void Comm::create_socket()
 {
   socket_fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -71,21 +76,21 @@ void Comm::read_request()
 
 void Comm::send_text(std::string message)
 {
-  response.set_content_type("text/plain");
+  response.set_content_type(http.get_content_type("txt"));
   std::string msg = response.compose_response(message);
   send(connection, msg.c_str(), msg.size(), 0);
 }
 
 void Comm::send_json(std::string message)
 {
-  response.set_content_type("application/json");
+  response.set_content_type(http.get_content_type("json"));
   std::string msg = response.compose_response(message);
   send(connection, msg.c_str(), msg.size(), 0);
 }
 
 void Comm::send_html(std::string message)
 {
-  response.set_content_type("text/html");
+  response.set_content_type(http.get_content_type("html"));
   std::string msg = response.compose_response(message);
   send(connection, msg.c_str(), msg.size(), 0);
 }
@@ -93,36 +98,27 @@ void Comm::send_html(std::string message)
 void Comm::send_not_implemented()
 {
   response.set_status_code(501);
-  response.set_content_type("text/html");
+  response.set_content_type(http.get_content_type("html"));
   std::string msg = response.compose_response("<h1>501 Not Implemented</h1>");
   send(connection, msg.c_str(), msg.size(), 0);
 }
 
-void Comm::send_file(std::string file_path)
+void Comm::send_file(std::string file_name)
 {
-  std::string file = Utils::read_file(file_path);
+  std::string file = Utils::read_file("src/server/" + public_path + "/" + file_name);
 
-  std::vector<std::string> file_tk;
-
-  Utils::tokenize(file_path, "\n", file_tk);
-
-  Utils::print_vector(file_tk);
-
-  std::string extension = Utils::get_extension(file_path);
-
-  std::cout << "File Extension: " << extension << std::endl;
-  std::cout << "File Path: " << file_path << std::endl;
+  std::string extension = Utils::get_extension(file_name);
 
   response.set_status_code(200);
   response.set_content_type(http.get_content_type(extension));
-  std::string msg = response.compose_response(file);
-  send(connection, msg.c_str(), msg.size(), 0);
+  std::string message = response.compose_response(file);
+  send(connection, message.c_str(), message.size(), 0);
 }
 
 void Comm::send_server_error()
 {
   response.set_status_code(500);
-  response.set_content_type("text/html");
+  response.set_content_type(http.get_content_type("html"));
   std::string msg = response.compose_response("<h1>500 Server Error</h1>");
   send(connection, msg.c_str(), msg.size(), 0);
 }

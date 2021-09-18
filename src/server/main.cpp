@@ -2,9 +2,19 @@
 
 int main()
 {
-  Sirocco server(3000);
+  /**
+   * The sever constructor receives an options map with the
+   * following keys:
+   *
+   * * port: the port to listen on
+   * * public_path: the path to the public directory
+   * * debug: whether or not to enable debug mode
+   *
+   * Depending on the keys passed, certain features may be
+   * enabled.
+   */
 
-  server.set_public_path("public");
+  Sirocco server({{"port", 3000}, {"public_path", "public"}});
 
   server.get("/", get_home);
   server.get("/secure", get_secure);

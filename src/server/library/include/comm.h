@@ -19,6 +19,7 @@ class Comm
 {
 private:
   HTTP http;
+  std::string public_path;
 
 public:
   int port;
@@ -33,6 +34,8 @@ public:
 
   Comm(/* args */);
   ~Comm();
+
+  void set_public_path(std::string);
 
   void create_socket();
   void bind_socket(int);

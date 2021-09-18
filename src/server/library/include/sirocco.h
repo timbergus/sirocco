@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <functional>
 #include <map>
+#include <any>
 
 #include "http.h"
 #include "utils.h"
@@ -24,15 +25,15 @@ private:
 
   std::string public_path;
 
+  bool debug;
+
 public:
-  Sirocco(int);
+  Sirocco(std::map<std::string, std::any>);
   ~Sirocco();
 
   void listening();
 
   void respond();
-
-  void set_public_path(std::string);
 
   void handle_response(std::string, std::string, std::function<void(Comm)>);
 
@@ -41,6 +42,8 @@ public:
   void put(std::string, std::function<void(Comm)>);
   void patch(std::string, std::function<void(Comm)>);
   void del(std::string, std::function<void(Comm)>);
+
+  void log(std::string);
 };
 
 #endif /* SIROCCO_H */

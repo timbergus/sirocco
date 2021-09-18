@@ -8,7 +8,7 @@
 std::function<void(Comm)> get_home = [](Comm comm)
 {
   comm.response.set_status_code(200);
-  comm.send_file("src/server/public/index.html");
+  comm.send_file("index.html");
 };
 
 std::function<void(Comm)> get_secure = [](Comm comm)

@@ -1,9 +1,28 @@
 #include "include/sirocco.h"
 
-Sirocco::Sirocco(int port)
+Sirocco::Sirocco(std::map<std::string, std::any> options)
 {
-  comm.create_socket();
-  comm.bind_socket(port);
+  if (auto public_path{options.find("public_path")}; public_path != std::end(options))
+  {
+    std::string pp = std::any_cast<const char *>(public_path->second);
+    this->public_path = pp;
+    comm.set_public_path(pp);
+  }
+
+  if (auto debug{options.find("debug")}; debug != std::end(options))
+  {
+    this->debug = std::any_cast<bool>(debug->second);
+  }
+
+  if (auto port{options.find("port")}; port != std::end(options))
+  {
+    comm.create_socket();
+    comm.bind_socket(std::any_cast<int>(port->second));
+  }
+  else
+  {
+    throw std::runtime_error("No port specified");
+  }
 }
 
 Sirocco::~Sirocco()
@@ -51,14 +70,9 @@ void Sirocco::respond()
     }
     else
     {
-      comm.send_file(public_path + "/" + comm.request.as_tokens.path[0]);
+      comm.send_file(comm.request.as_tokens.path[0]);
     }
   }
-}
-
-void Sirocco::set_public_path(std::string path)
-{
-  public_path = "src/server/" + path;
 }
 
 void Sirocco::handle_response(std::string verb, std::string request_path, std::function<void(Comm)> callback)
@@ -76,25 +90,38 @@ void Sirocco::handle_response(std::string verb, std::string request_path, std::f
 
 void Sirocco::get(std::string request_path, std::function<void(Comm)> callback)
 {
+  log("GET " + request_path);
   handle_response("GET", request_path, callback);
 }
 
 void Sirocco::post(std::string request_path, std::function<void(Comm)> callback)
 {
+  log("POST " + request_path);
   handle_response("POST", request_path, callback);
 }
 
 void Sirocco::put(std::string request_path, std::function<void(Comm)> callback)
 {
+  log("PUT " + request_path);
   handle_response("PUT", request_path, callback);
 }
 
 void Sirocco::patch(std::string request_path, std::function<void(Comm)> callback)
 {
+  log("PATCH " + request_path);
   handle_response("PATCH", request_path, callback);
 }
 
 void Sirocco::del(std::string request_path, std::function<void(Comm)> callback)
 {
+  log("DELETE " + request_path);
   handle_response("DELETE", request_path, callback);
+}
+
+void Sirocco::log(std::string message)
+{
+  if (debug)
+  {
+    std::cout << message << std::endl;
+  }
 }

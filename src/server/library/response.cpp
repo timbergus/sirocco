@@ -10,7 +10,7 @@ Response::~Response()
 
 std::string Response::compose_response(std::string content)
 {
-  char buffer[1024];
+  char buffer[4096];
 
   http_response.content_length = content.size();
   http_response.connection_status = "close";
