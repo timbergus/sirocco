@@ -62,11 +62,29 @@ private:
       {511, "Network Authentication Required"},
   };
 
+  std::map<std::string, std::string> content_types{
+      // Text type.
+      {"html", "text/html"},
+      {"css", "text/css"},
+      {"txt", "text/plain"},
+      {"csv", "text/csv"},
+      {"xml", "text/xml"},
+      // Application type.
+      {"js", "application/javascript"},
+      {"json", "application/json"},
+      // Image type.
+      {"jpg", "image/jpeg"},
+      {"jpeg", "image/png"},
+      {"png", "image/png"},
+      {"ico", "image/x-icon"},
+  };
+
 public:
   HTTP();
   ~HTTP();
 
   std::string get_status_message(int);
+  std::string get_content_type(std::string);
 };
 
 #endif /* HTTP_H */

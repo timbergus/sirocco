@@ -45,24 +45,20 @@ void Sirocco::respond()
 
     // TODO #4 Clean this part.
 
-    std::size_t found = comm.request.as_tokens.path[0].find(".css");
-
-    if (found != std::string::npos)
-    {
-      std::string file;
-
-      Utils::read_file("src/server/public/" + comm.request.as_tokens.path[0], file);
-
-      comm.response.set_status_code(200);
-      comm.response.set_content_type("text/css");
-      std::string msg = comm.response.compose_response(file);
-      send(comm.connection, msg.c_str(), msg.size(), 0);
-    }
-    else
+    if (public_path.empty())
     {
       comm.send_not_implemented();
     }
+    else
+    {
+      comm.send_file(public_path + "/" + comm.request.as_tokens.path[0]);
+    }
   }
+}
+
+void Sirocco::set_public_path(std::string path)
+{
+  public_path = "src/server/" + path;
 }
 
 void Sirocco::handle_response(std::string verb, std::string request_path, std::function<void(Comm)> callback)

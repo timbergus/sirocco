@@ -74,8 +74,9 @@ std::string Utils::print_map(std::map<std::string, std::string> tokens)
   return result;
 }
 
-void Utils::read_file(std::string file_name, std::string &contents)
+std::string Utils::read_file(std::string file_name)
 {
+  std::string contents;
   std::ifstream file(file_name);
 
   std::string line;
@@ -88,9 +89,20 @@ void Utils::read_file(std::string file_name, std::string &contents)
       contents += line;
     }
     file.close();
+
+    return contents;
   }
-  else
+
+  throw std::runtime_error("Could not open file: " + file_name);
+}
+
+std::string Utils::get_extension(std::string file_name)
+{
+  std::size_t found = file_name.find_last_of(".");
+  if (found != std::string::npos)
   {
-    std::cout << "Error reading file!" << std::endl;
+    return file_name.substr(found + 1);
   }
+
+  throw std::runtime_error("Could not get extension from file name.");
 }

@@ -4,6 +4,8 @@ int main()
 {
   Sirocco server(3000);
 
+  server.set_public_path("public");
+
   server.get("/", get_home);
   server.get("/secure", get_secure);
   server.post("/secure", post_secure);

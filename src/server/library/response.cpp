@@ -29,7 +29,6 @@ std::string Response::compose_response(std::string content)
 
 void Response::set_status_code(int status)
 {
-  HTTP http;
   http_response.status_code = status;
   http_response.status_message = http.get_status_message(status);
 }

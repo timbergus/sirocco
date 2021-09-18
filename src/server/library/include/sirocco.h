@@ -22,6 +22,8 @@ private:
 
   std::map<std::string, std::map<int, std::function<void(Comm)>>> handlers;
 
+  std::string public_path;
+
 public:
   Sirocco(int);
   ~Sirocco();
@@ -29,6 +31,8 @@ public:
   void listening();
 
   void respond();
+
+  void set_public_path(std::string);
 
   void handle_response(std::string, std::string, std::function<void(Comm)>);
 

@@ -5,3 +5,7 @@
 
 .vscode
 /src/www/.vscode
+
+# MacOSX settings
+
+.DS_Store

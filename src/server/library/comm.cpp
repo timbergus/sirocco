@@ -98,6 +98,27 @@ void Comm::send_not_implemented()
   send(connection, msg.c_str(), msg.size(), 0);
 }
 
+void Comm::send_file(std::string file_path)
+{
+  std::string file = Utils::read_file(file_path);
+
+  std::vector<std::string> file_tk;
+
+  Utils::tokenize(file_path, "\n", file_tk);
+
+  Utils::print_vector(file_tk);
+
+  std::string extension = Utils::get_extension(file_path);
+
+  std::cout << "File Extension: " << extension << std::endl;
+  std::cout << "File Path: " << file_path << std::endl;
+
+  response.set_status_code(200);
+  response.set_content_type(http.get_content_type(extension));
+  std::string msg = response.compose_response(file);
+  send(connection, msg.c_str(), msg.size(), 0);
+}
+
 void Comm::send_server_error()
 {
   response.set_status_code(500);

@@ -13,6 +13,8 @@
 class Response
 {
 private:
+  HTTP http;
+
   struct http_response_t
   {
     std::string protocol = "HTTP/1.1";

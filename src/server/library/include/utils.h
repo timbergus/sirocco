@@ -25,7 +25,8 @@ public:
   static std::string print_map(std::map<std::string, std::string>);
 
   // Static files
-  static void read_file(std::string, std::string &);
+  static std::string read_file(std::string);
+  static std::string get_extension(std::string);
 };
 
 #endif /* UTILS_H */

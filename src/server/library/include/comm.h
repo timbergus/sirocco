@@ -13,11 +13,13 @@
 
 #include "request.h"
 #include "response.h"
+#include "http.h"
 
 class Comm
 {
 private:
-  /* data */
+  HTTP http;
+
 public:
   int port;
   int socket_fd;
@@ -42,6 +44,7 @@ public:
   void send_text(std::string);
   void send_json(std::string);
   void send_html(std::string);
+  void send_file(std::string);
 
   void send_not_implemented();
   void send_server_error();
