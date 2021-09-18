@@ -59,10 +59,11 @@ void Sirocco::respond()
   }
   catch (const std::exception &e)
   {
-    // If we have an error that means that we could bb requested a file.
-    // So we check if the request has the extension, and we send the file.
-
-    // TODO #4 Clean this part.
+    /**
+     * If we have an error that means that we could be requesting a file.
+     * If the public path has not been set, then we can't serve files, so
+     * we'll just return a "not implemented".
+     */
 
     if (public_path.empty())
     {

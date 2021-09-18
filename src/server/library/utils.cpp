@@ -76,18 +76,14 @@ std::string Utils::print_map(std::map<std::string, std::string> tokens)
 
 std::string Utils::read_file(std::string file_name)
 {
-  std::string contents;
   std::ifstream file(file_name);
-
-  std::string line;
 
   if (file.is_open())
   {
-    while (std::getline(file, line))
-    {
-      contents += "\n";
-      contents += line;
-    }
+    std::vector<unsigned char> buffer(std::istreambuf_iterator<char>(file), {});
+
+    std::string contents(buffer.begin(), buffer.end());
+
     file.close();
 
     return contents;

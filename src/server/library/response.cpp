@@ -10,21 +10,18 @@ Response::~Response()
 
 std::string Response::compose_response(std::string content)
 {
-  char buffer[4096];
-
   http_response.content_length = content.size();
   http_response.connection_status = "close";
 
-  sprintf(buffer, "%s %d %s\nContent-Type: %s\nContent-Length: %d\nConnection: %s\n\n%s",
-          http_response.protocol.c_str(),
-          http_response.status_code,
-          http_response.status_message.c_str(),
-          http_response.content_type.c_str(),
-          http_response.content_length,
-          http_response.connection_status.c_str(),
-          content.c_str());
+  std::string message = http_response.protocol + " " +
+                        std::to_string(http_response.status_code) + " " +
+                        http_response.status_message + "\n" +
+                        "Content-Type: " + http_response.content_type + "\n" +
+                        "Content-Length: " + std::to_string(http_response.content_length) + "\n" +
+                        "Connection: " + http_response.connection_status + "\n\n" +
+                        content;
 
-  return buffer;
+  return message;
 }
 
 void Response::set_status_code(int status)
