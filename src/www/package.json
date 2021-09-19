@@ -2,6 +2,7 @@
   "name": "sirocco-site",
   "version": "1.0.0",
   "private": true,
+  "homepage": "https://timbergus.github.io/sirocco/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
