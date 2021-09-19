@@ -29,10 +29,16 @@ To test the server, there is a `test.http` file that can be run using the VSCode
 
 ## Documentation
 
-The documentation has been created as a GitHub page. The project is written using [Svelte](https://svelte.dev/), and lives in `src/www`.
+The documentation has been created as a GitHub page. The project is written using [React](https://reactjs.org/), and lives in `src/www`.
 
 ### Development
 
 - `cd src/www`.
 - `npm install`.
-- `npm run dev`.
+- `npm start`.
+
+And after your changes are production ready.
+
+- `npm run build`.
+
+The result of the build will be stored in the `docs` folder and published by GitHub.
