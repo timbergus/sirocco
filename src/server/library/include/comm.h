@@ -10,16 +10,20 @@
 #include <netinet/in.h>
 // read request
 #include <unistd.h>
+// file paths
+#include <filesystem>
 
 #include "request.h"
 #include "response.h"
 #include "http.h"
+#include "utils.h"
 
 class Comm
 {
 private:
   HTTP http;
-  std::string public_path;
+  std::filesystem::path public_path;
+  std::map<std::string, std::string> env;
 
 public:
   int port;

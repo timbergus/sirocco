@@ -64,19 +64,19 @@ private:
 
   std::map<std::string, std::string> content_types{
       // Text type.
-      {"html", "text/html"},
-      {"css", "text/css"},
-      {"txt", "text/plain"},
-      {"csv", "text/csv"},
-      {"xml", "text/xml"},
+      {".html", "text/html"},
+      {".css", "text/css"},
+      {".txt", "text/plain"},
+      {".csv", "text/csv"},
+      {".xml", "text/xml"},
       // Application type.
-      {"js", "application/javascript"},
-      {"json", "application/json"},
+      {".js", "application/javascript"},
+      {".json", "application/json"},
       // Image type.
-      {"jpg", "image/jpeg"},
-      {"jpeg", "image/png"},
-      {"png", "image/png"},
-      {"ico", "image/x-icon"},
+      {".jpg", "image/jpeg"},
+      {".jpeg", "image/png"},
+      {".png", "image/png"},
+      {".ico", "image/x-icon"},
   };
 
 public:

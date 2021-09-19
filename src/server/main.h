@@ -15,9 +15,9 @@ std::function<void(Comm)> get_secure = [](Comm comm)
 {
   comm.response.set_status_code(500);
   comm.send_html("<h1>Server is dead!</h1><br /><p>" +
-                 Utils::print_vector(comm.request.parsed.path) +
+                 Utils::stringify_vector(comm.request.parsed.path) +
                  "</p><br /><p>" +
-                 Utils::print_map(comm.request.parsed.query) + "</p>");
+                 Utils::stringify_map(comm.request.parsed.query) + "</p>");
 };
 
 std::function<void(Comm)> post_secure = [](Comm comm)

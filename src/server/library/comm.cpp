@@ -2,6 +2,7 @@
 
 Comm::Comm()
 {
+  Utils::read_env_file("src/server/.env", env);
 }
 
 Comm::~Comm()
@@ -10,7 +11,8 @@ Comm::~Comm()
 
 void Comm::set_public_path(std::string public_path)
 {
-  this->public_path = public_path;
+  std::filesystem::path p(public_path);
+  this->public_path = p.lexically_normal();
 }
 
 void Comm::create_socket()
@@ -105,12 +107,14 @@ void Comm::send_not_implemented()
 
 void Comm::send_file(std::string file_name)
 {
-  std::string file = Utils::read_file("src/server/" + public_path + "/" + file_name);
+  std::filesystem::path file_path(env["ROOT_PATH"] + "/" +
+                                  public_path.string() + "/" +
+                                  file_name);
 
-  std::string extension = Utils::get_extension(file_name);
+  std::string file = Utils::read_file(file_path.lexically_normal());
 
   response.set_status_code(200);
-  response.set_content_type(http.get_content_type(extension));
+  response.set_content_type(http.get_content_type(file_path.extension()));
   std::string message = response.compose_response(file);
   send(connection, message.c_str(), message.size(), 0);
 }

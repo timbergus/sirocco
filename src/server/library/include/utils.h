@@ -19,14 +19,12 @@ public:
 
   static void tokenize(std::string, const char *, std::vector<std::string> &);
   static void tokenize(char *, const char *, std::vector<std::string> &);
-  static void print_vector(std::string, std::vector<std::string>);
-  static std::string print_vector(std::vector<std::string>);
-  static void print_map(std::string, std::map<std::string, std::string>);
-  static std::string print_map(std::map<std::string, std::string>);
+  static std::string stringify_vector(std::vector<std::string>);
+  static std::string stringify_map(std::map<std::string, std::string>);
 
   // Static files
   static std::string read_file(std::string);
-  static std::string get_extension(std::string);
+  static void read_env_file(std::string, std::map<std::string, std::string> &);
 };
 
 #endif /* UTILS_H */
