@@ -19,9 +19,10 @@ public:
 
   struct request_t
   {
+    std::string raw_path;
     std::vector<std::string> path;
     std::map<std::string, std::string> query;
-  } as_tokens;
+  } parsed;
 
   Request();
   ~Request();

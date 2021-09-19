@@ -52,10 +52,12 @@ void Sirocco::respond()
   {
     std::string base = "";
 
-    if (comm.request.as_tokens.path.size() > 0)
-      base = comm.request.as_tokens.path[0];
+    if (comm.request.parsed.path.size() > 0)
+    {
+      base = comm.request.parsed.path[0];
+    }
 
-    handlers[comm.request.verb + "_" + base][comm.request.as_tokens.path.size() - 1](comm);
+    handlers[comm.request.verb + "_" + base][comm.request.parsed.path.size() - 1](comm);
   }
   catch (const std::exception &e)
   {
@@ -71,7 +73,16 @@ void Sirocco::respond()
     }
     else
     {
-      comm.send_file(comm.request.as_tokens.path[0]);
+      if (comm.request.parsed.raw_path == "/")
+      {
+        // Files from the root path. We send the name.
+        comm.send_file(comm.request.parsed.path[0]);
+      }
+      else
+      {
+        // Files from a sub-path. We send the full path.
+        comm.send_file(comm.request.parsed.raw_path);
+      }
     }
   }
 }

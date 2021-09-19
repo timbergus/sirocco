@@ -34,6 +34,7 @@ void Request::parse_request()
 
   verb = as_string_tk[0];
 
-  as_tokens.path = path_tk;
-  as_tokens.query = query_map;
+  parsed.raw_path = as_string_tk[1];
+  parsed.path = path_tk;
+  parsed.query = query_map;
 }
