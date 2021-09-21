@@ -1,13 +1,36 @@
-import "./index.css";
+import { StrictMode } from 'react';
+import { render } from 'react-dom';
+import { RecoilRoot } from 'recoil';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
-import { StrictMode } from "react";
-import { render } from "react-dom";
+import App from './app/App';
+import theme from './theme';
 
-import App from "./app/App";
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: ${({ theme }: { theme: any }): string => theme.colors.tertiary};
+    background-color: ${({ theme }: { theme: any }): string =>
+      theme.colors.secondary};
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+`;
 
 render(
   <StrictMode>
-    <App />
+    <ThemeProvider theme={theme}>
+      <RecoilRoot>
+        <GlobalStyle />
+        <App />
+      </RecoilRoot>
+    </ThemeProvider>
   </StrictMode>,
-  document.getElementById("root"),
+  document.getElementById('root'),
 );

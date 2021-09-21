@@ -1,8 +1,9 @@
-import styled from "styled-components";
-import { FC } from "react";
+import styled from 'styled-components';
+import { FC } from 'react';
 
-import Header from "../components/Header/Header";
-import Footer from "../components/Footer/Footer";
+import Logo from '../components/Logo/Logo';
+import Header from '../components/Header/Header';
+import Footer from '../components/Footer/Footer';
 
 const Container = styled.div`
   display: flex;
@@ -11,7 +12,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
-  color: var(--primary);
+  color: ${({ theme }): string => theme.colors.primary};
   text-transform: uppercase;
   font-size: 4em;
   font-weight: 100;
@@ -30,8 +31,9 @@ const App: FC = () => {
     <Container>
       <Header />
       <Contents>
+        <Logo />
         <Title>Hello Sirocco!</Title>
-        <p>Welcome to the next gen C++ servers.</p>
+        <p>Welcome to the next-gen C++ server</p>
       </Contents>
       <Footer />
     </Container>
