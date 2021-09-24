@@ -1,9 +1,9 @@
 #include <functional>
 
-#include "library/include/sirocco.h"
-#include "library/include/json.h"
-#include "library/include/comm.h"
-#include "library/include/utils.h"
+#include "sirocco.h"
+#include "json.h"
+#include "comm.h"
+#include "utils.h"
 
 std::function<void(Comm)> get_home = [](Comm comm)
 {

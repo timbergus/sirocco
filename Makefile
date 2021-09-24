@@ -1,8 +1,9 @@
-CC=clang++
-CFLAGS=-std=c++17 -Werror -Wall -Wextra
+CC=g++-11
+CFLAGS=-std=c++20 -Werror -Wall -Wextra -I $(LIBRARY)/include
 
 TARGET=sirocco
 ROOT=src/server
+APP=${ROOT}/app
 LIBRARY=$(ROOT)/library
 BIN=$(ROOT)/bin
 
@@ -13,13 +14,13 @@ OBJS=	$(BIN)/main.o		\
 		$(BIN)/comm.o		\
 		$(BIN)/http.o		\
 		$(BIN)/json.o		\
-		$(BIN)/utils.o		\
+		$(BIN)/utils.o
 
 $(BIN)/%.o: $(LIBRARY)/%.cpp
 	@mkdir -p $(BIN)
 	$(CC) $(CFLAGS) -c -MD $< -o $@
 
-$(BIN)/%.o: $(ROOT)/%.cpp
+$(BIN)/%.o: $(APP)/%.cpp
 	@mkdir -p $(BIN)
 	$(CC) $(CFLAGS) -c -MD $< -o $@
 

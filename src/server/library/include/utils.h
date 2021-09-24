@@ -6,7 +6,7 @@
 #include <iostream>
 #include <map>
 #include <vector>
-#include <string>
+#include <string.h>
 #include <fstream>
 
 class Utils

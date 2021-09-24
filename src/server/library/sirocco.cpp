@@ -1,4 +1,4 @@
-#include "include/sirocco.h"
+#include "sirocco.h"
 
 Sirocco::Sirocco(std::map<std::string, std::any> options)
 {
