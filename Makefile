@@ -1,31 +1,42 @@
-CC=g++-11
-CFLAGS=-std=c++20 -Werror -Wall -Wextra -I $(LIBRARY)/include
+CC=clang++
 
 TARGET=sirocco
+
 ROOT=src/server
 APP=${ROOT}/app
-LIBRARY=$(ROOT)/library
-BIN=$(ROOT)/bin
+INCLUDE=$(ROOT)/include
 
-OBJS=	$(BIN)/main.o		\
-		$(BIN)/sirocco.o	\
-		$(BIN)/request.o	\
-		$(BIN)/response.o	\
-		$(BIN)/comm.o		\
-		$(BIN)/http.o		\
-		$(BIN)/json.o		\
-		$(BIN)/utils.o
+ifeq ($(OS),Windows_NT) # is Windows_NT on XP, 2000, 7, Vista, 10...
+	IFLAGS=-I $(INCLUDE)
+	BIN=src\server\bin
+else
+	IFLAGS=-I $(INCLUDE) -I /usr/local/include
+	LFLAGS=-L /usr/local/lib -lfmt
+	BIN=$(ROOT)/bin
+endif
 
-$(BIN)/%.o: $(LIBRARY)/%.cpp
+CFLAGS=-std=c++2a -Werror -Wall -Wextra
+
+OBJS=$(BIN)/main.o
+
+$(BIN)/%.o: $(INCLUDE)/%.cpp
+ifeq ($(OS),Windows_NT)
+	@mkdir $(BIN)
+else
 	@mkdir -p $(BIN)
-	$(CC) $(CFLAGS) -c -MD $< -o $@
+endif
+	$(CC) $(CFLAGS) $(IFLAGS) -c -MD $< -o $@
 
 $(BIN)/%.o: $(APP)/%.cpp
+ifeq ($(OS),Windows_NT)
+	@mkdir $(BIN)
+else
 	@mkdir -p $(BIN)
-	$(CC) $(CFLAGS) -c -MD $< -o $@
+endif
+	$(CC) $(CFLAGS) $(IFLAGS) -c -MD $< -o $@
 
 $(TARGET): $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) -o $(BIN)/$(TARGET)
+	@$(CC) $(CFLAGS) $(IFLAGS) $(LFLAGS) $(OBJS) -o $(BIN)/$(TARGET)
 
 -include $(BIN)/*.d
 
@@ -35,4 +46,8 @@ start:
 .PHONY: clean
 
 clean:
-	rm -r $(BIN)
+ifeq ($(OS),Windows_NT)
+	@rmdir /S/Q $(BIN)
+else
+	@rm -r $(BIN)
+endif
