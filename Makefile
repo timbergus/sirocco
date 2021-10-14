@@ -30,7 +30,7 @@ endif
 
 # Always the latest and greatest of the C++ standard.
 
-CFLAGS=-std=c++2a -Werror -Wall -Wextra
+CFLAGS=-std=c++20 -Werror -Wall -Wextra
 
 # We need a .o for every .cpp file.
 
@@ -41,20 +41,20 @@ OBJS=$(BIN)/main.o
 # INCLUDE
 $(BIN)/%.o: $(INCLUDE)/%.cpp
 ifeq ($(OS),Windows_NT)
-	@mkdir $(BIN)
+	@if not exist $(BIN) mkdir $(BIN)
 else
 	@mkdir -p $(BIN)
 endif
-	$(CC) $(CFLAGS) $(IFLAGS) -c -MD $< -o $@
+	$(CXX) $(CFLAGS) $(IFLAGS) -c -MD $< -o $@
 
 # APP
 $(BIN)/%.o: $(APP)/%.cpp
 ifeq ($(OS),Windows_NT)
-	@mkdir $(BIN)
+	@if not exist $(BIN) mkdir $(BIN)
 else
 	@mkdir -p $(BIN)
 endif
-	$(CC) $(CFLAGS) $(IFLAGS) -c -MD $< -o $@
+	$(CXX) $(CFLAGS) $(IFLAGS) -c -MD $< -o $@
 
 # And we link all the objects files together including the libraries.
 
