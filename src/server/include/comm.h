@@ -4,12 +4,19 @@
 #define COMM_H
 
 #include <iostream>
+
+#ifdef _WIN32
+#include <ws2tcpip.h>
+#pragma comment(lib, "ws2_32.lib")
+#else
 // create socket
 #include <sys/socket.h>
 // bind socket
 #include <netinet/in.h>
 // read request
 #include <unistd.h>
+#endif
+
 // file paths
 #include <filesystem>
 
@@ -27,7 +34,11 @@ private:
 
 public:
   int port;
+#ifdef _WIN32
+  SOCKET socket_fd;
+#else
   int socket_fd;
+#endif
   int connection;
   sockaddr_in sockaddr;
 
@@ -77,13 +88,33 @@ void Comm::set_public_path(std::string public_path)
 
 void Comm::create_socket()
 {
-  socket_fd = socket(AF_INET, SOCK_STREAM, 0);
+#ifdef _WIN32
+  WSADATA wsaData;
+  WORD DllVersion = MAKEWORD(2, 2);
 
-  if (socket_fd == -1)
+  if (WSAStartup(DllVersion, &wsaData) != 0)
   {
-    std::cout << "Error creating socket" << std::endl;
+    std::cerr << "WSAStartup failed: " << WSAGetLastError() << std::endl;
     exit(EXIT_FAILURE);
   }
+#endif
+
+  socket_fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+
+#ifdef _WIN32
+  if (socket_fd == INVALID_SOCKET)
+  {
+    std::cerr << "Error at socket(): " << WSAGetLastError() << std::endl;
+    WSACleanup();
+    exit(EXIT_FAILURE);
+  }
+#else
+  if (socket_fd == -1)
+  {
+    std::cout << "Error creating socket" << errno << std::endl;
+    exit(EXIT_FAILURE);
+  }
+#endif
 }
 
 void Comm::bind_socket(int port)
@@ -127,7 +158,12 @@ void Comm::accept_connection()
 
 void Comm::read_request()
 {
-  if (read(connection, request.as_string, sizeof(request.as_string)) < 0)
+#ifdef _WIN32
+  int n = recv(connection, request.as_string, sizeof(request.as_string), 0);
+#else
+  int n = read(connection, request.as_string, sizeof(request.as_string));
+#endif
+  if (n < 0)
   {
     std::cout << "Failed reading the message." << std::endl;
     exit(EXIT_FAILURE);
@@ -171,10 +207,10 @@ void Comm::send_file(std::string file_name)
                                   public_path.string() + "/" +
                                   file_name);
 
-  std::string file = Utils::read_file(file_path.lexically_normal());
+  std::string file = Utils::read_file(file_path.lexically_normal().string());
 
   response.set_status_code(200);
-  response.set_content_type(http.get_content_type(file_path.extension()));
+  response.set_content_type(http.get_content_type(file_path.extension().string()));
   std::string message = response.compose_response(file);
   send(connection, message.c_str(), message.size(), 0);
 }
@@ -189,12 +225,21 @@ void Comm::send_server_error()
 
 void Comm::close_connection()
 {
+#ifdef _WIN32
+  closesocket(connection);
+#else
   close(connection);
+#endif
 }
 
 void Comm::close_socket()
 {
+#ifdef _WIN32
+  closesocket(socket_fd);
+  WSACleanup();
+#else
   close(socket_fd);
+#endif
 }
 
 #endif /* COMM_H */

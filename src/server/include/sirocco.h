@@ -82,8 +82,6 @@ void Sirocco::listening()
 {
   comm.listen_connection();
 
-  // ************************
-
   while (true)
   {
     comm.accept_connection();
@@ -141,7 +139,9 @@ void Sirocco::handle_response(std::string verb, std::string request_path, std::f
   std::string base = "";
 
   if (tokens.size() > 0)
+  {
     base = tokens[0];
+  }
 
   handlers[verb + "_" + base][tokens.size() - 1] = callback;
 }

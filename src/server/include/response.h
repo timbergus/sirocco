@@ -4,9 +4,6 @@
 #define RESPONSE_H
 
 #include <string>
-#include <stdio.h>
-#include <netinet/in.h>
-#include <map>
 
 #include "http.h"
 

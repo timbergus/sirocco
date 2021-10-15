@@ -48,9 +48,27 @@ void Request::parse_request()
   std::vector<std::string> path_tk;
   std::vector<std::string> query_tk;
 
-  Utils::tokenize(as_string_tk[1], "?", path_query_tk);
-  Utils::tokenize(path_query_tk[0], "/", path_tk);
-  Utils::tokenize(path_query_tk[1], "&", query_tk);
+  if (as_string_tk.size() > 0)
+  {
+    verb = as_string_tk[0];
+  }
+
+  if (as_string_tk.size() > 1)
+  {
+    Utils::tokenize(as_string_tk[1], "?", path_query_tk);
+    parsed.raw_path = as_string_tk[1];
+  }
+
+  if (path_query_tk.size() > 0)
+  {
+    Utils::tokenize(path_query_tk[0], "/", path_tk);
+    parsed.path = path_tk;
+  }
+
+  if (path_query_tk.size() > 1)
+  {
+    Utils::tokenize(path_query_tk[1], "&", query_tk);
+  }
 
   std::map<std::string, std::string> path_map;
   std::map<std::string, std::string> query_map;
@@ -62,10 +80,6 @@ void Request::parse_request()
     query_map[q_tk[0]] = q_tk[1];
   }
 
-  verb = as_string_tk[0];
-
-  parsed.raw_path = as_string_tk[1];
-  parsed.path = path_tk;
   parsed.query = query_map;
 }
 
