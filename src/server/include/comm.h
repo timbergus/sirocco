@@ -111,7 +111,7 @@ void Comm::create_socket()
 #else
   if (socket_fd == -1)
   {
-    std::cout << "Error creating socket" << errno << std::endl;
+    std::cerr << "Error at socket(): " << strerror(errno) << std::endl;
     exit(EXIT_FAILURE);
   }
 #endif

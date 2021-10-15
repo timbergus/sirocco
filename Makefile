@@ -30,7 +30,7 @@ endif
 
 # Always the latest and greatest of the C++ standard.
 
-CFLAGS=-std=c++20 -Werror -Wall -Wextra
+CFLAGS=-std=c++2a -Werror -Wall -Wextra
 
 # We need a .o for every .cpp file.
 
