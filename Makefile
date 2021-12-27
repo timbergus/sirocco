@@ -25,7 +25,7 @@ ifeq ($(OS),Windows_NT) # is Windows_NT on XP, 2000, 7, Vista, 10...
 	IFLAGS=-I $(INCLUDE)
 else
 	IFLAGS=-I $(INCLUDE) -I /usr/local/include
-	LFLAGS=-L /usr/local/lib -lfmt
+#	LFLAGS=-L /usr/local/lib -lfmt
 endif
 
 # Always the latest and greatest of the C++ standard.
