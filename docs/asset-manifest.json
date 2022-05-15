@@ -1,17 +1,10 @@
 {
   "files": {
-    "main.js": "/sirocco/static/js/main.7a536a8d.chunk.js",
-    "main.js.map": "/sirocco/static/js/main.7a536a8d.chunk.js.map",
-    "runtime-main.js": "/sirocco/static/js/runtime-main.4e1e7d07.js",
-    "runtime-main.js.map": "/sirocco/static/js/runtime-main.4e1e7d07.js.map",
-    "static/js/2.e47df9a2.chunk.js": "/sirocco/static/js/2.e47df9a2.chunk.js",
-    "static/js/2.e47df9a2.chunk.js.map": "/sirocco/static/js/2.e47df9a2.chunk.js.map",
+    "main.js": "/sirocco/static/js/main.3805ccb4.js",
     "index.html": "/sirocco/index.html",
-    "static/js/2.e47df9a2.chunk.js.LICENSE.txt": "/sirocco/static/js/2.e47df9a2.chunk.js.LICENSE.txt"
+    "main.3805ccb4.js.map": "/sirocco/static/js/main.3805ccb4.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.4e1e7d07.js",
-    "static/js/2.e47df9a2.chunk.js",
-    "static/js/main.7a536a8d.chunk.js"
+    "static/js/main.3805ccb4.js"
   ]
 }
