@@ -26,18 +26,16 @@ const Contents = styled.div`
   justify-content: center;
 `;
 
-const App: FC = () => {
-  return (
-    <Container>
-      <Header />
-      <Contents>
-        <Logo />
-        <Title>Hello Sirocco!</Title>
-        <p>Welcome to the next-gen C++ server</p>
-      </Contents>
-      <Footer />
-    </Container>
-  );
-};
+const App: FC = () => (
+  <Container>
+    <Header />
+    <Contents>
+      <Logo />
+      <Title>Hello Sirocco!</Title>
+      <p>Welcome to the next-gen C++ server</p>
+    </Contents>
+    <Footer />
+  </Container>
+);
 
 export default App;

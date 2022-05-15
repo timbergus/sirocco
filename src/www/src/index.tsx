@@ -1,5 +1,5 @@
 import { StrictMode } from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { RecoilRoot } from 'recoil';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
@@ -23,7 +23,11 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-render(
+const container = document.getElementById('root');
+
+const root = createRoot(container as HTMLElement);
+
+root.render(
   <StrictMode>
     <ThemeProvider theme={theme}>
       <RecoilRoot>
@@ -32,5 +36,4 @@ render(
       </RecoilRoot>
     </ThemeProvider>
   </StrictMode>,
-  document.getElementById('root'),
 );

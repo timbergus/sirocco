@@ -10,22 +10,23 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^12.1.0",
-    "@testing-library/user-event": "^13.2.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
-    "recoil": "^0.4.1",
-    "styled-components": "^5.3.1",
-    "typescript": "^4.4.3"
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.2.0",
+    "@testing-library/user-event": "^14.2.0",
+    "fix": "^0.0.6",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-scripts": "5.0.1",
+    "recoil": "0.7.3-alpha.2",
+    "styled-components": "^5.3.5",
+    "typescript": "^4.6.4"
   },
   "devDependencies": {
-    "@types/jest": "^27.0.1",
-    "@types/node": "^16.9.3",
-    "@types/react": "^17.0.21",
-    "@types/react-dom": "^17.0.9",
-    "@types/styled-components": "^5.1.14"
+    "@types/jest": "^27.5.1",
+    "@types/node": "^17.0.33",
+    "@types/react": "^18.0.9",
+    "@types/react-dom": "^18.0.4",
+    "@types/styled-components": "^5.1.25"
   },
   "eslintConfig": {
     "extends": [
