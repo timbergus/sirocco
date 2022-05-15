@@ -5,6 +5,9 @@
 
 #include <iostream>
 
+#define FMT_HEADER_ONLY
+#include <fmt/format.h>
+
 #ifdef _WIN32
 #include <ws2tcpip.h>
 #pragma comment(lib, "ws2_32.lib")
@@ -24,10 +27,12 @@
 #include "response.h"
 #include "http.h"
 #include "utils.h"
+#include "color.h"
 
 class Comm
 {
 private:
+  Color palette;
   HTTP http;
   std::filesystem::path public_path;
   std::map<std::string, std::string> env;
@@ -127,7 +132,7 @@ void Comm::bind_socket(int port)
 
   if (bind(socket_fd, (struct sockaddr *)&sockaddr, sizeof(sockaddr)) < 0)
   {
-    std::cout << "Failed to bind to port " << port << ". errno: " << errno << std::endl;
+    std::cout << fmt::format("Failed to bind to port {}. Errno: {}\n", port, errno);
     exit(EXIT_FAILURE);
   }
 }
@@ -136,11 +141,13 @@ void Comm::listen_connection()
 {
   if (listen(socket_fd, 10) < 0)
   {
-    std::cout << "Failed to listen on socket. errno: " << errno << std::endl;
+    std::cout << fmt::format("Failed to listen on socket. Errno: {}\n", errno);
     exit(EXIT_FAILURE);
   }
 
-  std::cout << "Listening on port " << port << std::endl;
+  const std::string formattedMessage = palette.set_color("Listening on:", "green");
+  const std::string formattedPortName = palette.set_color(std::to_string(port), "yellow");
+  std::cout << fmt::format("\n{} http://localhost:{}\n", formattedMessage, formattedPortName);
 }
 
 void Comm::accept_connection()
@@ -203,9 +210,8 @@ void Comm::send_not_implemented()
 
 void Comm::send_file(std::string file_name)
 {
-  std::filesystem::path file_path(env["ROOT_PATH"] + "/" +
-                                  public_path.string() + "/" +
-                                  file_name);
+  std::string path = fmt::format("{}/{}/{}", env["ROOT_PATH"], public_path.string(), file_name);
+  std::filesystem::path file_path(path);
 
   std::string file = Utils::read_file(file_path.lexically_normal().string());
 
