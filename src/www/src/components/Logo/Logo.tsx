@@ -1,27 +1,27 @@
-import styled from 'styled-components';
-import { FC, useState } from 'react';
-import { useRecoilValue } from 'recoil';
-import { debugState } from '../../atoms';
+import styled from 'styled-components'
+import { FC, useState } from 'react'
+import { useRecoilValue } from 'recoil'
+import { debugState } from '../../atoms'
 
-import Control from './Control';
+import Control from './Control'
 
 const Controllers = styled.div`
   padding: 1rem 0;
-`;
+`
 
 const Logo: FC = () => {
-  const isDebug = useRecoilValue(debugState);
+  const isDebug = useRecoilValue(debugState)
 
-  const [offsetX, setOffsetX] = useState(15);
-  const [offsetY, setOffsetY] = useState(25);
-  const [sizeX, setSizeX] = useState(170);
-  const [sizeY, setSizeY] = useState(150);
-  const [guideX1, setGuideX1] = useState(2);
-  const [guideX2, setGuideX2] = useState(5);
-  const [guideX3, setGuideX3] = useState(8);
-  const [guideY1, setGuideY1] = useState(4);
-  const [guideY2, setGuideY2] = useState(5);
-  const [guideY3, setGuideY3] = useState(6);
+  const [offsetX, setOffsetX] = useState(15)
+  const [offsetY, setOffsetY] = useState(25)
+  const [sizeX, setSizeX] = useState(170)
+  const [sizeY, setSizeY] = useState(150)
+  const [guideX1, setGuideX1] = useState(2)
+  const [guideX2, setGuideX2] = useState(5)
+  const [guideX3, setGuideX3] = useState(8)
+  const [guideY1, setGuideY1] = useState(4)
+  const [guideY2, setGuideY2] = useState(5)
+  const [guideY3, setGuideY3] = useState(6)
 
   const guidesX = [
     offsetX + 0,
@@ -29,14 +29,14 @@ const Logo: FC = () => {
     offsetX + (sizeX * guideX2) / 10,
     offsetX + (sizeX * guideX3) / 10,
     offsetX + sizeX,
-  ];
+  ]
   const guidesY = [
     offsetY + 0,
     offsetY + (sizeY * guideY1) / 10,
     offsetY + (sizeY * guideY2) / 10,
     offsetY + (sizeY * guideY3) / 10,
     offsetY + sizeY,
-  ];
+  ]
 
   const points = [
     [guidesX[1], guidesY[0]],
@@ -51,7 +51,7 @@ const Logo: FC = () => {
     [guidesX[2], guidesY[3]],
     [guidesX[0], guidesY[2]],
     [guidesX[0], guidesY[1]],
-  ];
+  ]
 
   return (
     <>
@@ -134,7 +134,7 @@ const Logo: FC = () => {
         </Controllers>
       )}
     </>
-  );
-};
+  )
+}
 
-export default Logo;
+export default Logo

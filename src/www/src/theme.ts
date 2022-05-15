@@ -1,6 +1,6 @@
 // import { DefaultTheme } from 'styled-components';
 
-const sizeBase = 16;
+const sizeBase = 16
 
 // const theme: DefaultTheme = {
 const theme = {
@@ -20,6 +20,6 @@ const theme = {
     xxl: `${sizeBase * 3}px`,
   },
   spacing: (value: number): number => sizeBase * value,
-};
+}
 
-export default theme;
+export default theme

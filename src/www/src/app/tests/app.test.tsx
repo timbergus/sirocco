@@ -1,10 +1,10 @@
-import { RecoilRoot } from 'recoil';
-import { render, screen } from '@testing-library/react';
-import { ThemeProvider } from 'styled-components';
+import { RecoilRoot } from 'recoil'
+import { render, screen } from '@testing-library/react'
+import { ThemeProvider } from 'styled-components'
 
-import theme from '../../theme';
+import theme from '../../theme'
 
-import App from '../App';
+import App from '../App'
 
 describe('App component', () => {
   test('should render.', () => {
@@ -14,8 +14,8 @@ describe('App component', () => {
           <App />
         </RecoilRoot>
       </ThemeProvider>,
-    );
-    const text = screen.getByText('Hello Sirocco!');
-    expect(text).toBeInTheDocument();
-  });
-});
+    )
+    const text = screen.getByText('Hello Sirocco!')
+    expect(text).toBeInTheDocument()
+  })
+})

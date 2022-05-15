@@ -1,10 +1,10 @@
-import { RecoilRoot } from 'recoil';
-import { render, screen } from '@testing-library/react';
-import { ThemeProvider } from 'styled-components';
+import { RecoilRoot } from 'recoil'
+import { render, screen } from '@testing-library/react'
+import { ThemeProvider } from 'styled-components'
 
-import theme from '../../../theme';
+import theme from '../../../theme'
 
-import Header from '../Header';
+import Header from '../Header'
 
 describe('Header component', () => {
   test('should render.', () => {
@@ -14,8 +14,8 @@ describe('Header component', () => {
           <Header />
         </RecoilRoot>
       </ThemeProvider>,
-    );
-    const text = screen.getByText('SIROCCO');
-    expect(text).toBeInTheDocument();
-  });
-});
+    )
+    const text = screen.getByText('SIROCCO')
+    expect(text).toBeInTheDocument()
+  })
+})

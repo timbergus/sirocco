@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { ChangeEvent, FC } from 'react';
+import styled from 'styled-components'
+import { ChangeEvent, FC } from 'react'
 
 const Container = styled.div`
   display: flex;
@@ -25,15 +25,15 @@ const Container = styled.div`
     text-align: right;
     color: ${({ theme }) => theme.colors.yellow};
   }
-`;
+`
 
 type Props = {
-  label: string;
-  step: number;
-  max: number;
-  value: number;
-  onChange: (value: number) => void;
-};
+  label: string
+  step: number
+  max: number
+  value: number
+  onChange: (value: number) => void
+}
 
 const Control: FC<Props> = ({ label, step, max, value, onChange }) => {
   return (
@@ -51,7 +51,7 @@ const Control: FC<Props> = ({ label, step, max, value, onChange }) => {
       />
       <div>{value}</div>
     </Container>
-  );
-};
+  )
+}
 
-export default Control;
+export default Control

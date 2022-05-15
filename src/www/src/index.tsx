@@ -1,10 +1,10 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import { RecoilRoot } from 'recoil';
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import { RecoilRoot } from 'recoil'
+import { createGlobalStyle, ThemeProvider } from 'styled-components'
 
-import App from './app/App';
-import theme from './theme';
+import App from './app/App'
+import theme from './theme'
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -21,11 +21,11 @@ const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
-`;
+`
 
-const container = document.getElementById('root');
+const container = document.getElementById('root')
 
-const root = createRoot(container as HTMLElement);
+const root = createRoot(container as HTMLElement)
 
 root.render(
   <StrictMode>
@@ -36,4 +36,4 @@ root.render(
       </RecoilRoot>
     </ThemeProvider>
   </StrictMode>,
-);
+)

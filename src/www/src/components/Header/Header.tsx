@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { FC } from 'react';
+import styled from 'styled-components'
+import { FC } from 'react'
 
 const Container = styled.header`
   display: flex;
@@ -8,7 +8,7 @@ const Container = styled.header`
   height: 60px;
   border-bottom: 1px solid ${({ theme }): string => theme.colors.red};
   padding: 0 20px;
-`;
+`
 
 const GitHub = styled.a`
   text-decoration: none;
@@ -32,7 +32,7 @@ const GitHub = styled.a`
   &:after {
     content: 'GitHub';
   }
-`;
+`
 
 const Header: FC = () => {
   return (
@@ -40,7 +40,7 @@ const Header: FC = () => {
       <div>SIROCCO</div>
       <GitHub href="https://github.com/timbergus/sirocco" target="_blank" />
     </Container>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header
