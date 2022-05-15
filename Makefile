@@ -1,6 +1,7 @@
 # Clang as the compiler.
 
 CXX=clang++
+STD=c++20
 
 # The project name as the target.
 
@@ -21,16 +22,23 @@ BIN=bin
 
 # We need to choose between Windows and Mac.
 
+# Add format (fmt) library.
+
 ifeq ($(OS),Windows_NT) # is Windows_NT on XP, 2000, 7, Vista, 10...
-	IFLAGS=-I $(INCLUDE)
+FMT_INCLUDE=???
 else
-	IFLAGS=-I $(INCLUDE) -I /usr/local/include
-#	LFLAGS=-L /usr/local/lib -lfmt
+FMT_INCLUDE=/opt/homebrew/Cellar/fmt/8.1.1_1/include
+endif
+
+ifeq ($(OS),Windows_NT)
+IFLAGS=-I $(INCLUDE) # Add include when resolved.
+else
+IFLAGS=-I $(INCLUDE) -I $(FMT_INCLUDE)
 endif
 
 # Always the latest and greatest of the C++ standard.
 
-CFLAGS=-std=c++2a -Werror -Wall -Wextra
+CFLAGS=-std=$(STD) -Werror -Wall -Wextra
 
 # We need a .o for every .cpp file.
 
