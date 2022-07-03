@@ -14,5 +14,3 @@ add_executable(sirocco src/server/app/main.cpp)
 target_include_directories(sirocco PRIVATE src/server/include)
 
 target_link_libraries(sirocco ${CONAN_LIBS})
-
-file(COPY src/server/.env DESTINATION ${CMAKE_BINARY_DIR})
