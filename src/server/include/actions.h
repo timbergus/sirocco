@@ -1,6 +1,8 @@
+#include <fstream>
+#include <nlohmann/json.hpp>
+
 #include "comm.h"
 #include "utils.h"
-#include "json.h"
 
 const auto get_home = [](Comm comm)
 {
@@ -25,10 +27,21 @@ const auto post_secure = [](Comm comm)
 
 const auto put_secure = [](Comm comm)
 {
-  std::map<std::string, std::string> data{{"hello", "world"}, {"bye", "moon"}};
+  nlohmann::json data;
+  std::ifstream json_file("src/server/public/database.json");
 
-  comm.response.set_status_code(202);
-  comm.send_json(JSON::stringify(data));
+  if (json_file.is_open())
+  {
+    json_file >> data;
+    comm.response.set_status_code(202);
+  }
+  else
+  {
+    data = nlohmann::json::object();
+    comm.response.set_status_code(404);
+  }
+
+  comm.send_json(data.dump(4));
 };
 
 const auto delete_secure = [](Comm comm)

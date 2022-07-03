@@ -28,12 +28,13 @@ ifeq ($(OS),Windows_NT) # is Windows_NT on XP, 2000, 7, Vista, 10...
 FMT_INCLUDE=???
 else
 FMT_INCLUDE=/opt/homebrew/Cellar/fmt/8.1.1_1/include
+NLOHMANN_JSON_INCLUDE=/opt/homebrew/Cellar/nlohmann-json/3.10.5/include
 endif
 
 ifeq ($(OS),Windows_NT)
 IFLAGS=-I $(INCLUDE) # Add include when resolved.
 else
-IFLAGS=-I $(INCLUDE) -I $(FMT_INCLUDE)
+IFLAGS=-I $(INCLUDE) -I $(FMT_INCLUDE) -I $(NLOHMANN_JSON_INCLUDE)
 endif
 
 # Always the latest and greatest of the C++ standard.
