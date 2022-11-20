@@ -1,7 +1,7 @@
 # Clang as the compiler.
 
 CXX=clang++
-STD=c++20
+STD=c++2b
 
 # The project name as the target.
 
@@ -27,8 +27,8 @@ BIN=bin
 ifeq ($(OS),Windows_NT) # is Windows_NT on XP, 2000, 7, Vista, 10...
 FMT_INCLUDE=???
 else
-FMT_INCLUDE=/opt/homebrew/Cellar/fmt/8.1.1_1/include
-NLOHMANN_JSON_INCLUDE=/opt/homebrew/Cellar/nlohmann-json/3.10.5/include
+FMT_INCLUDE=/opt/homebrew/Cellar/fmt/9.1.0/include
+NLOHMANN_JSON_INCLUDE=/opt/homebrew/Cellar/nlohmann-json/3.11.2/include
 endif
 
 ifeq ($(OS),Windows_NT)
