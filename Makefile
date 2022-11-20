@@ -35,6 +35,7 @@ ifeq ($(OS),Windows_NT)
 IFLAGS=-I $(INCLUDE) # Add include when resolved.
 else
 IFLAGS=-I $(INCLUDE) -I $(FMT_INCLUDE) -I $(NLOHMANN_JSON_INCLUDE)
+LFLAGS=-l sqlite3
 endif
 
 # Always the latest and greatest of the C++ standard.
