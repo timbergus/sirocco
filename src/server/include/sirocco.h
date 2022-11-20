@@ -134,7 +134,7 @@ void Sirocco::respond()
 void Sirocco::handle_response(std::string verb, std::string request_path, std::function<void(Comm)> callback)
 {
   std::vector<std::string> tokens;
-  Utils::tokenize(request_path, "/", tokens);
+  Utils::split(request_path, "/", tokens);
 
   std::string base = "";
 
