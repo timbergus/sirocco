@@ -200,14 +200,6 @@ void Comm::send_html(std::string message)
   send(connection, msg.c_str(), msg.size(), 0);
 }
 
-void Comm::send_not_implemented()
-{
-  response.set_status_code(501);
-  response.set_content_type(http.get_content_type("html"));
-  std::string msg = response.compose_response("<h1>501 Not Implemented</h1>");
-  send(connection, msg.c_str(), msg.size(), 0);
-}
-
 void Comm::send_file(std::string file_name)
 {
   std::string path = fmt::format("{}/{}/{}", env["ROOT_PATH"], public_path.string(), file_name);
@@ -216,9 +208,17 @@ void Comm::send_file(std::string file_name)
   std::string file = Utils::read_file(file_path.lexically_normal().string());
 
   response.set_status_code(200);
-  response.set_content_type(http.get_content_type(file_path.extension().string()));
+  response.set_content_type(http.get_content_type(file_path.extension().string().substr(1)));
   std::string message = response.compose_response(file);
   send(connection, message.c_str(), message.size(), 0);
+}
+
+void Comm::send_not_implemented()
+{
+  response.set_status_code(501);
+  response.set_content_type(http.get_content_type("html"));
+  std::string msg = response.compose_response("<h1>501 Not Implemented</h1>");
+  send(connection, msg.c_str(), msg.size(), 0);
 }
 
 void Comm::send_server_error()

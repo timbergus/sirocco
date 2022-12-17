@@ -17,8 +17,7 @@ public:
   Utils(/* args */);
   ~Utils();
 
-  static void tokenize(std::string, const char *, std::vector<std::string> &);
-  static void tokenize(char *, const char *, std::vector<std::string> &);
+  static void split(std::string, std::string, std::vector<std::string> &);
   static std::string stringify_vector(std::vector<std::string>);
   static std::string stringify_map(std::map<std::string, std::string>);
 
@@ -35,26 +34,17 @@ Utils::~Utils()
 {
 }
 
-void Utils::tokenize(std::string str, const char *delimeter, std::vector<std::string> &tokens)
+void Utils::split(std::string sample, std::string delimeter, std::vector<std::string> &tokens)
 {
-  char *token = strtok((char *)str.c_str(), delimeter);
+  std::string::size_type beg = 0;
 
-  while (token)
+  for (auto end = 0; size_t(end = sample.find(delimeter, end)) != std::string::npos; ++end)
   {
-    tokens.push_back(token);
-    token = strtok(NULL, delimeter);
+    tokens.push_back(sample.substr(beg, end - beg));
+    beg = end + 1;
   }
-}
 
-void Utils::tokenize(char *str, const char *delimeter, std::vector<std::string> &tokens)
-{
-  char *token = strtok(str, delimeter);
-
-  while (token)
-  {
-    tokens.push_back(token);
-    token = strtok(NULL, delimeter);
-  }
+  tokens.push_back(sample.substr(beg));
 }
 
 std::string Utils::stringify_vector(std::vector<std::string> tokens)
@@ -114,7 +104,7 @@ void Utils::read_env_file(std::string file_name, std::map<std::string, std::stri
   while (std::getline(file, line))
   {
     std::vector<std::string> split_line;
-    Utils::tokenize(line, "=", split_line);
+    Utils::split(line, "=", split_line);
     env[split_line[0]] = split_line[1];
   }
 }
