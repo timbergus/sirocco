@@ -1,11 +1,8 @@
-init:
-	cd bin && conan install .. && cmake ..
-
-build:
-	cd bin && make
+all:
+	mkdir build && cd build && conan install .. && cd .. && cmake -B build && cmake --build build
 
 start:
-	./bin/sirocco
+	./build/sirocco
 
 clean:
-	cd bin && rm -rf *
+	rm -rf build

@@ -1,8 +1,8 @@
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.25.1)
 
 project(sirocco)
 
-set(CMAKE_CXX_STANDARD 20)
+add_definitions("-std=c++2b")
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 
