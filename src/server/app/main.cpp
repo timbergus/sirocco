@@ -3,25 +3,25 @@
 #include "sirocco.h"
 #include "actions.h"
 
-static int callback(void *data, int argc, char **argv, char **azColName)
-{
-  int i;
-  fprintf(stderr, "%s: \n", (const char *)data);
+// static int callback(void *data, int argc, char **argv, char **azColName)
+// {
+//   int i;
+//   fprintf(stderr, "%s: \n", (const char *)data);
 
-  for (i = 0; i < argc; i++)
-  {
-    printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
-  }
+//   for (i = 0; i < argc; i++)
+//   {
+//     printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+//   }
 
-  printf("\n");
-  return 0;
-}
+//   printf("\n");
+//   return 0;
+// }
 
 int main()
 {
   // DDBB
 
-  sqlite3 *db;
+  /* sqlite3 *db;
 
   if (sqlite3_open("src/server/public/test.db", &db))
   {
@@ -49,7 +49,38 @@ int main()
     }
   }
 
-  sqlite3_close(db);
+  sqlite3_close(db); */
+
+  // DDBB.
+  sqlite3 *connection = nullptr;
+
+  int result = sqlite3_open("src/server/public/test.db", &connection);
+
+  if (result != SQLITE_OK)
+  {
+    std::cout << sqlite3_errmsg(connection) << std::endl;
+    sqlite3_close(connection);
+    return result;
+  }
+
+  sqlite3_stmt *query = nullptr;
+
+  result = sqlite3_prepare_v2(connection, "select 'Hello, World!'", -1, &query, nullptr);
+
+  if (result != SQLITE_OK)
+  {
+    std::cout << sqlite3_errmsg(connection) << std::endl;
+    sqlite3_close(connection);
+    return result;
+  }
+
+  while (SQLITE_ROW == sqlite3_step(query))
+  {
+    std::cout << sqlite3_column_text(query, 0) << std::endl;
+  }
+
+  sqlite3_finalize(query);
+  sqlite3_close(connection);
 
   /**
    * The sever constructor receives an options map with the
