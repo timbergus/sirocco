@@ -1,8 +1,13 @@
-all:
-	mkdir build && cd build && conan install .. && cd .. && cmake -B build && cmake --build build
+BUILD=build
+
+init:
+	conan install . -if $(BUILD) && cmake -B $(BUILD)
+
+build_project:
+	cmake --build $(BUILD)
 
 start:
-	./build/sirocco
+	./$(BUILD)/sirocco
 
 clean:
-	rm -rf build
+	rm -rf $(BUILD)
