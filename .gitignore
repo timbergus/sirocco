@@ -7,7 +7,7 @@ node_modules
 coverage
 
 # server binaries
-bin
+build
 
 # misc
 .DS_Store
