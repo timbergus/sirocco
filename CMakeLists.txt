@@ -1,16 +1,24 @@
-cmake_minimum_required(VERSION 3.25.1)
+cmake_minimum_required(VERSION 3.26.3)
+project(sirocco VERSION 0.1.0)
 
-project(sirocco)
+include(CTest)
+enable_testing()
 
-add_definitions("-std=c++2b")
+set(CMAKE_CXX_STANDARD 26)
+add_compile_options(-Wall -Wextra)
 
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+file(GLOB SOURCES src/server/include/*.h src/server/include/*.cpp)
 
-#3 This is the Conan configuartion.
-conan_basic_setup(NO_OUTPUT_DIRS)
+find_package(fmt REQUIRED)
+find_package(nlohmann_json REQUIRED)
 
-add_executable(sirocco src/server/app/main.cpp)
+add_executable(sirocco src/server/app/main.cpp ${SOURCES})
 
 target_include_directories(sirocco PRIVATE src/server/include)
 
-target_link_libraries(sirocco ${CONAN_LIBS})
+target_link_libraries(${PROJECT_NAME} fmt::fmt)
+target_link_libraries(${PROJECT_NAME} nlohmann_json::nlohmann_json)
+
+set(CPACK_PROJECT_NAME ${PROJECT_NAME})
+set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
+include(CPack)

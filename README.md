@@ -1,12 +1,12 @@
 # Sirocco
 
-A easy to use C++ REST server. A personal project to learn C++ and improve my knowledge of the Internet. Feel free to fork it and have fun from scratch :)
+A easy to use C++ REST server. A personal project to learn C++ and improve my knowledge of the Internet. Feel free to fork it and have fun from scratch 🙂
 
 ## Files
 
 - **`main`**: The example application to test the library.
 - **`actions`**: The callbacks for the server endpoints.
-- **`sirocco`**: The server itself.
+- **`server`**: The server itself.
 - **`request`**: Module to handle the client's request.
 - **`response`**: Module to handle the server's response.
 - **`comm`**: Communication module that stores a request and a response.
@@ -20,8 +20,10 @@ The project lives in `src/server` and has a `main.cpp` file as test bench for th
 
 All the processes are controlled using `make`. The `Makefile` describe all of them.
 
-- Build the project: `make sirocco`.
-- Run the project: `make start`.
+- Cleans the project: `make clean`.
+- Inits the project: `make init`.
+- Builds the project: `make sirocco`.
+- Runs the project: `make start`.
 
 ## Testing the Server
 
@@ -34,11 +36,11 @@ The documentation has been created as a GitHub page. The project is written usin
 ### Development
 
 - `cd src/www`.
-- `npm install`.
-- `npm start`.
+- `yarn`.
+- `yarn dev`.
 
 And after your changes are production ready.
 
-- `npm run build`.
+- `yarn build`.
 
 The result of the build will be stored in the `docs` folder and published by GitHub.

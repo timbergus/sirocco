@@ -1,7 +1,7 @@
-#include "sirocco.h"
-#include "actions.h"
+#include "../include/actions.h"
+#include "../include/server.h"
 
-int main()
+int main(int, char **)
 {
   /**
    * The sever constructor receives an options map with the
@@ -15,13 +15,13 @@ int main()
    * enabled.
    */
 
-  Sirocco server({{"port", 3000}, {"public_path", "public"}});
+  Server server({{"port", 3000}, {"public_path", "public"}});
 
   server.get("/", get_home);
   server.get("/secure", get_secure);
   server.post("/secure", post_secure);
-  server.put("/secure/id", put_secure);
-  server.del("/secure/id", delete_secure);
+  server.put("/secure", put_secure);
+  server.del("/secure", delete_secure);
 
   server.listening();
 

@@ -21,5 +21,8 @@ build
 /**/yarn-debug.log*
 /**/yarn-error.log*
 
-# vscode settings
+# VScode settings
 .vscode
+
+# CMake settings
+CMakeUserPresets.json

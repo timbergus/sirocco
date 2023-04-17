@@ -1,86 +1,21 @@
 // request.h
 
-#ifndef REQUEST_H // include guard
+#ifndef REQUEST_H
 #define REQUEST_H
 
-#include <map>
+#include <string>
 #include <vector>
+#include <map>
 
-#include "utils.h"
-
-class Request
+struct request_t
 {
-private:
-  /* data */
-public:
-  char as_string[1024];
-
   std::string verb;
-
-  struct request_t
-  {
-    std::string raw_path;
-    std::vector<std::string> path;
-    std::map<std::string, std::string> query;
-  } parsed;
-
-  Request();
-  ~Request();
-
-  void parse_request();
+  std::string path;
+  std::string query;
+  std::vector<std::string> path_tokens;
+  std::map<std::string, std::string> query_tokens;
 };
 
-Request::Request()
-{
-}
+void parse_request(std::string, request_t &);
 
-Request::~Request()
-{
-}
-
-void Request::parse_request()
-{
-  std::vector<std::string> as_string_tk;
-
-  Utils::split(as_string, " ", as_string_tk);
-
-  std::vector<std::string> path_query_tk;
-  std::vector<std::string> path_tk;
-  std::vector<std::string> query_tk;
-
-  if (as_string_tk.size() > 0)
-  {
-    verb = as_string_tk[0];
-  }
-
-  if (as_string_tk.size() > 1)
-  {
-    Utils::split(as_string_tk[1], "?", path_query_tk);
-    parsed.raw_path = as_string_tk[1];
-  }
-
-  if (path_query_tk.size() > 0)
-  {
-    Utils::split(path_query_tk[0], "/", path_tk);
-    parsed.path = path_tk;
-  }
-
-  if (path_query_tk.size() > 1)
-  {
-    Utils::split(path_query_tk[1], "&", query_tk);
-  }
-
-  std::map<std::string, std::string> path_map;
-  std::map<std::string, std::string> query_map;
-
-  for (auto q : query_tk)
-  {
-    std::vector<std::string> q_tk;
-    Utils::split(q, "=", q_tk);
-    query_map[q_tk[0]] = q_tk[1];
-  }
-
-  parsed.query = query_map;
-}
-
-#endif /* REQUEST_H */
+#endif

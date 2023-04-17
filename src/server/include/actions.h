@@ -1,51 +1,48 @@
-#include <fstream>
+#include <string>
 #include <nlohmann/json.hpp>
 
-#include "comm.h"
-#include "utils.h"
+#include "util.h"
+#include "comms.h"
 
-const auto get_home = [](Comm comm)
+const auto get_home = [](Comms comms)
 {
-  comm.response.set_status_code(200);
-  comm.send_file("index.html");
+  comms.send_file(comms.request.path_tokens[1]);
 };
 
-const auto get_secure = [](Comm comm)
+const auto get_secure = [](Comms comms)
 {
-  comm.response.set_status_code(500);
-  comm.send_html("<h1>Server is dead!</h1><br /><p>" +
-                 Utils::stringify_vector(comm.request.parsed.path) +
-                 "</p><br /><p>" +
-                 Utils::stringify_map(comm.request.parsed.query) + "</p>");
+  comms.send_contents("<h1>Server is dead!</h1><br /><p>" +
+                          stringify_vector(comms.request.path_tokens) +
+                          "</p><br /><p>" +
+                          stringify_map(comms.request.query_tokens) + "</p>",
+                      "html", 500);
 };
 
-const auto post_secure = [](Comm comm)
+const auto post_secure = [](Comms comms)
 {
-  comm.response.set_status_code(200);
-  comm.send_text("Thanks for the info!");
+  comms.send_contents("Thanks for the info!", "txt");
 };
 
-const auto put_secure = [](Comm comm)
+const auto put_secure = [](Comms comms)
 {
   nlohmann::json data;
-  std::ifstream json_file("src/server/public/database.json");
+  std::string file = read_file("src/server/public/database.json");
 
-  if (json_file.is_open())
+  if (file.empty())
   {
-    json_file >> data;
-    comm.response.set_status_code(202);
+    data = nlohmann::json::object();
+    set_status_code(404, comms.response);
   }
   else
   {
-    data = nlohmann::json::object();
-    comm.response.set_status_code(404);
+    data = nlohmann::json::parse(file);
+    set_status_code(202, comms.response);
   }
 
-  comm.send_json(data.dump(4));
+  comms.send_contents(data.dump(4), "json");
 };
 
-const auto delete_secure = [](Comm comm)
+const auto delete_secure = [](Comms comms)
 {
-  comm.response.set_status_code(401);
-  comm.send_html("<h1>Sorry. Not enough permission!</h1>");
+  comms.send_contents("<h1>Sorry. Not enough permission!</h1>", "html", 401);
 };

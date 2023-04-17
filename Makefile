@@ -1,13 +1,14 @@
 BUILD=build
+PROJECT=sirocco
 
 init:
-	conan install . -if $(BUILD) && cmake -B $(BUILD)
+	conan install . --output-folder=$(BUILD) --build=missing && cmake -B $(BUILD)
 
-build_project:
+sirocco:
 	cmake --build $(BUILD)
 
 start:
-	./$(BUILD)/sirocco
+	./$(BUILD)/$(PROJECT)
 
 clean:
 	rm -rf $(BUILD)
