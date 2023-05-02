@@ -1,7 +1,4 @@
-// request.h
-
-#ifndef REQUEST_H
-#define REQUEST_H
+#pragma once
 
 #include <string>
 #include <vector>
@@ -17,5 +14,3 @@ struct request_t
 };
 
 void parse_request(std::string, request_t &);
-
-#endif

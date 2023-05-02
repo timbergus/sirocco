@@ -1,9 +1,4 @@
-// http.h
-
 #pragma once
-
-#ifndef HTTP_H
-#define HTTP_H
 
 #include <string>
 #include <map>
@@ -67,5 +62,3 @@ static std::map<std::string, std::string> content_types{
     {"png", "image/png"},
     {"ico", "image/x-icon"},
 };
-
-#endif

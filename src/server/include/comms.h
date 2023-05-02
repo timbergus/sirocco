@@ -1,7 +1,4 @@
-// comms.h
-
-#ifndef COMMS_H
-#define COMMS_H
+#pragma once
 
 #include <string>
 #include <map>
@@ -60,5 +57,3 @@ public:
   Comms();
   ~Comms();
 };
-
-#endif

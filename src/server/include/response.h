@@ -1,7 +1,4 @@
-// response.h
-
-#ifndef RESPONSE_H
-#define RESPONSE_H
+#pragma once
 
 #include <string>
 
@@ -19,5 +16,3 @@ void set_status_code(int, response_t &);
 void set_content_type(std::string, response_t &);
 
 std::string compose_response(std::string, response_t &);
-
-#endif

@@ -1,7 +1,4 @@
-// server.h
-
-#ifndef SERVER_H
-#define SERVER_H
+#pragma once
 
 #include <string>
 #include <map>
@@ -38,5 +35,3 @@ public:
 
   void log(std::string);
 };
-
-#endif
