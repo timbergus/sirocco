@@ -3,6 +3,7 @@
 #include <string>
 #include <map>
 #include <filesystem>
+#include <functional>
 
 #ifdef _WIN32
 #include <ws2tcpip.h>

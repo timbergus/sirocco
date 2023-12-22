@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 #include <map>
 
 void split(const std::string &, const std::string &, std::vector<std::string> &);
