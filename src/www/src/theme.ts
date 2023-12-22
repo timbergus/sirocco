@@ -1,9 +1,8 @@
-// import { DefaultTheme } from 'styled-components';
+import { DefaultTheme } from 'styled-components'
 
 const sizeBase = 16
 
-// const theme: DefaultTheme = {
-const theme = {
+const theme: DefaultTheme = {
   colors: {
     primary: '#6ee666',
     secondary: '#353535',

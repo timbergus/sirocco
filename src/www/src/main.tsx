@@ -6,7 +6,7 @@ import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import App from './app/App'
 import theme from './theme'
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle<Partial<typeof theme>>`
   body {
     margin: 0;
     padding: 0;
