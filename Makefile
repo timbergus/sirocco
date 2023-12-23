@@ -10,5 +10,8 @@ sirocco:
 start:
 	./$(BUILD)/$(PROJECT)
 
+test:
+	ctest --test-dir $(BUILD)
+
 clean:
 	rm -rf $(BUILD)

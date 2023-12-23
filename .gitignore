@@ -26,3 +26,6 @@ build
 
 # CMake settings
 CMakeUserPresets.json
+
+# Additional files
+Testing
