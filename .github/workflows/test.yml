@@ -9,6 +9,7 @@ jobs:
       - run: pip install conan
       - run: conan profile detect
       - run: sudo apt install libfmt-dev
+      - run: sudo apt install nlohmann-json3-dev
       - run: make init
       - run: make sirocco
       - run: make test
