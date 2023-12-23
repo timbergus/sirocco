@@ -1,0 +1,9 @@
+name: test
+run-name: Testing Sirocco server
+on: [push]
+jobs:
+  testing_server:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: make init && make sirocco && make test
