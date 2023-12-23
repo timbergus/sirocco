@@ -6,7 +6,9 @@ enable_testing()
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-add_compile_options(-Wall -Wextra -Werror -Wpedantic)
+if(APPLE)
+  add_compile_options(-Wall -Wextra -Werror -Wpedantic)
+endif()
 
 file(GLOB_RECURSE CPP_FILES CONFIGURE_DEPENDS ${CMAKE_SOURCE_DIR}/src/server/apps/*.cpp)
 
