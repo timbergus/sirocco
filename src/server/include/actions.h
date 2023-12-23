@@ -3,7 +3,7 @@
 #include <string>
 #include <nlohmann/json.hpp>
 
-#include "util.h"
+#include "utils.h"
 #include "comms.h"
 
 const auto get_home = [](Comms comms)
