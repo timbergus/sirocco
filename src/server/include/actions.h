@@ -33,12 +33,12 @@ const auto put_secure = [](Comms comms)
   if (file.empty())
   {
     data = nlohmann::json::object();
-    set_status_code(404, comms.response);
+    comms.response.set_status_code(404);
   }
   else
   {
     data = nlohmann::json::parse(file);
-    set_status_code(202, comms.response);
+    comms.response.set_status_code(202);
   }
 
   comms.send_contents(data.dump(4), "json");

@@ -1,13 +1,4 @@
-// comms.cpp
-
-#include <iostream>
-#include <fmt/core.h>
-#include <fmt/color.h>
-
 #include "comms.h"
-#include "request.h"
-#include "http.h"
-#include "utils.h"
 
 Comms::Comms()
 {
@@ -109,14 +100,14 @@ void Comms::read_request()
     exit(EXIT_FAILURE);
   }
 
-  parse_request(received_request, request);
+  request.parse_request(received_request);
 }
 
 void Comms::send_contents(std::string content, std::string extension, int status_code)
 {
-  set_status_code(status_code, response);
-  set_content_type(extension, response);
-  std::string msg = compose_response(content, response);
+  response.set_status_code(status_code);
+  response.set_content_type(extension);
+  std::string msg = response.compose_response(content);
   send(connection, msg.c_str(), msg.size(), 0);
 }
 

@@ -4,6 +4,9 @@
 #include <map>
 #include <filesystem>
 #include <functional>
+#include <iostream>
+#include <fmt/core.h>
+#include <fmt/color.h>
 
 #ifdef _WIN32
 #include <ws2tcpip.h>
@@ -34,9 +37,12 @@ private:
 
 public:
   int port;
-  request_t request;
-  response_t response;
+  Request request;
+  Response response;
   std::filesystem::path public_path;
+
+  Comms();
+  ~Comms();
 
   void set_public_path(std::string);
 
@@ -54,7 +60,4 @@ public:
 
   void send_not_implemented();
   void send_server_error();
-
-  Comms();
-  ~Comms();
 };
