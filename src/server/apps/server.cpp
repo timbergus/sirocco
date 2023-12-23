@@ -3,7 +3,7 @@
 #include <iostream>
 
 #include "server.h"
-#include "util.h"
+#include "utils.h"
 
 Server::Server(std::map<std::string, std::any> options)
 {
