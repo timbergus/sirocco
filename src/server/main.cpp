@@ -1,5 +1,5 @@
-#include "../include/actions.h"
-#include "../include/server.h"
+#include "actions.h"
+#include "server.h"
 
 int main(int, char **)
 {

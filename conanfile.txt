@@ -1,6 +1,6 @@
 [requires]
-fmt/9.1.0
-nlohmann_json/3.11.2
+fmt/10.1.1
+nlohmann_json/3.11.3
 
 [generators]
 CMakeDeps
