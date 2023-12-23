@@ -6,5 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: pip install conan && conan profile detect
-      - run: make init && make sirocco && make test
+      - run: pip install conan
+      - run: conan profile detect
+      - run: apt install libfmt-dev
+      - run: make init
+      - run: make sirocco
+      - run: make test
