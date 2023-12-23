@@ -30,8 +30,6 @@ All the processes are controlled using `make`. The `Makefile` describe all of th
 
 To test the server, there is a `test.http` file that can be run using the VSCode extension [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client).
 
-> Right now this is not working due to this [error](https://stackoverflow.com/questions/63037406/postman-error-parse-error-invalid-header-value-char) that I'm trying to fix, but using a browser and opening [localhost](http://localhost:3000) should show you a web page. Also, it works with `curl` and the console version of `httpie`. It seems to be failing with programs like Postman.
-
 ## Documentation
 
 The documentation has been created as a GitHub page. The project is written using [React](https://reactjs.org/), and lives in `src/www`.

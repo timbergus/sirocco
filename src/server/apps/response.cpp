@@ -26,11 +26,11 @@ std::string Response::compose_response(std::string content)
 
   std::string message{};
 
-  message += fmt::format("{} {} {}\n", this->protocol, this->status_code, this->status_message);
-  message += fmt::format("Content-Type: {}\n", this->content_type);
-  message += fmt::format("Content-Length: {}\n", this->content_length);
-  message += fmt::format("Connection: {}\n", this->connection_status);
-  message += "\n";
+  message += fmt::format("{} {} {}\r\n", this->protocol, this->status_code, this->status_message);
+  message += fmt::format("Content-Type: {}\r\n", this->content_type);
+  message += fmt::format("Content-Length: {}\r\n", this->content_length);
+  message += fmt::format("Connection: {}\r\n", this->connection_status);
+  message += "\r\n";
   message += content;
 
   return message;
