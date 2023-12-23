@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { ChangeEvent, FC } from 'react'
+import { ChangeEvent } from 'react'
 
 const Container = styled.div`
   display: flex;
@@ -27,7 +27,7 @@ const Container = styled.div`
   }
 `
 
-type Props = {
+type ControlProps = {
   label: string
   step: number
   max: number
@@ -35,23 +35,25 @@ type Props = {
   onChange: (value: number) => void
 }
 
-const Control: FC<Props> = ({ label, step, max, value, onChange }) => {
-  return (
-    <Container>
-      <div>{label}</div>
-      <input
-        type="range"
-        min={0}
-        max={max}
-        step={step}
-        value={value}
-        onChange={(event: ChangeEvent<HTMLInputElement>) =>
-          onChange(Number(event.target.value))
-        }
-      />
-      <div>{value}</div>
-    </Container>
-  )
-}
-
-export default Control
+export const Control = ({
+  label,
+  step,
+  max,
+  value,
+  onChange,
+}: ControlProps) => (
+  <Container>
+    <div>{label}</div>
+    <input
+      type="range"
+      min={0}
+      max={max}
+      step={step}
+      value={value}
+      onChange={(event: ChangeEvent<HTMLInputElement>) =>
+        onChange(Number(event.target.value))
+      }
+    />
+    <div>{value}</div>
+  </Container>
+)

@@ -1,15 +1,15 @@
 import styled from 'styled-components'
-import { FC, useState } from 'react'
+import { useState } from 'react'
 import { useRecoilValue } from 'recoil'
-import { debugState } from '../../atoms'
 
-import Control from './Control'
+import { Control } from './Control'
+import { debugState } from '../atoms'
 
 const Controllers = styled.div`
   padding: 1rem 0;
 `
 
-const Logo: FC = () => {
+export const Logo = () => {
   const isDebug = useRecoilValue(debugState)
 
   const [offsetX, setOffsetX] = useState(15)
@@ -136,5 +136,3 @@ const Logo: FC = () => {
     </>
   )
 }
-
-export default Logo

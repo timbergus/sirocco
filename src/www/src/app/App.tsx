@@ -1,9 +1,8 @@
 import styled from 'styled-components'
-import { FC } from 'react'
 
-import Logo from '../components/Logo/Logo'
-import Header from '../components/Header/Header'
-import Footer from '../components/Footer/Footer'
+import { Logo } from '../components/Logo'
+import { Header } from '../components/Header'
+import { Footer } from '../components/Footer'
 
 const Container = styled.div`
   display: flex;
@@ -26,7 +25,7 @@ const Contents = styled.div`
   justify-content: center;
 `
 
-const App: FC = () => (
+export const App = () => (
   <Container>
     <Header />
     <Contents>
@@ -37,5 +36,3 @@ const App: FC = () => (
     <Footer />
   </Container>
 )
-
-export default App

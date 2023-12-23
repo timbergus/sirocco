@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { FC } from 'react'
 
 const Container = styled.header`
   display: flex;
@@ -34,13 +33,9 @@ const GitHub = styled.a`
   }
 `
 
-const Header: FC = () => {
-  return (
-    <Container>
-      <div>SIROCCO</div>
-      <GitHub href="https://github.com/timbergus/sirocco" target="_blank" />
-    </Container>
-  )
-}
-
-export default Header
+export const Header = () => (
+  <Container>
+    <div>SIROCCO</div>
+    <GitHub href="https://github.com/timbergus/sirocco" target="_blank" />
+  </Container>
+)

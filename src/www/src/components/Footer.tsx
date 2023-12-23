@@ -1,8 +1,7 @@
 import styled from 'styled-components'
-import { FC } from 'react'
 import { useRecoilState } from 'recoil'
 
-import { debugState } from '../../atoms'
+import { debugState } from '../atoms'
 
 const Container = styled.footer`
   display: flex;
@@ -24,7 +23,7 @@ const Debug = styled.div<DebugProps>`
   user-select: none;
 `
 
-const Footer: FC = () => {
+export const Footer = () => {
   const [isDebug, setIsDebug] = useRecoilState(debugState)
 
   const handleClick = () => {
@@ -40,5 +39,3 @@ const Footer: FC = () => {
     </Container>
   )
 }
-
-export default Footer
