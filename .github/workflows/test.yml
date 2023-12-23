@@ -6,12 +6,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: pip install conan
-      - run: conan profile detect
       - run: sudo apt update
       - run: sudo apt install libfmt-dev
       - run: sudo apt install nlohmann-json3-dev
       - run: sudo apt install clang-15
+      - run: pip install conan
+      - run: conan profile detect
       - run: make init
       - run: make sirocco
       - run: make test
