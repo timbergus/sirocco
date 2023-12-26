@@ -19,6 +19,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/src/serve
 
 target_link_libraries(${PROJECT_NAME} fmt::fmt)
 target_link_libraries(${PROJECT_NAME} nlohmann_json::nlohmann_json)
+target_link_libraries(${PROJECT_NAME} sqlite3)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
@@ -32,6 +33,7 @@ add_executable(split_test ${CMAKE_SOURCE_DIR}/src/tests/split_test.cpp ${CPP_FIL
 target_include_directories(split_test PRIVATE ${CMAKE_SOURCE_DIR}/src/server/include)
 
 target_link_libraries(split_test fmt::fmt)
+target_link_libraries(split_test sqlite3)
 
 add_test(
   NAME split_test
@@ -44,6 +46,7 @@ add_executable(read_env_file_test ${CMAKE_SOURCE_DIR}/src/tests/read_env_file_te
 target_include_directories(read_env_file_test PRIVATE ${CMAKE_SOURCE_DIR}/src/server/include)
 
 target_link_libraries(read_env_file_test fmt::fmt)
+target_link_libraries(read_env_file_test sqlite3)
 
 add_test(
   NAME read_env_file_test
@@ -56,6 +59,7 @@ add_executable(read_file_test ${CMAKE_SOURCE_DIR}/src/tests/read_file_test.cpp $
 target_include_directories(read_file_test PRIVATE ${CMAKE_SOURCE_DIR}/src/server/include)
 
 target_link_libraries(read_file_test fmt::fmt)
+target_link_libraries(read_file_test sqlite3)
 
 add_test(
   NAME read_file_test
@@ -68,6 +72,7 @@ add_executable(stringify_vector_test ${CMAKE_SOURCE_DIR}/src/tests/stringify_vec
 target_include_directories(stringify_vector_test PRIVATE ${CMAKE_SOURCE_DIR}/src/server/include)
 
 target_link_libraries(stringify_vector_test fmt::fmt)
+target_link_libraries(stringify_vector_test sqlite3)
 
 add_test(
   NAME stringify_vector_test
@@ -80,6 +85,7 @@ add_executable(stringify_map_test ${CMAKE_SOURCE_DIR}/src/tests/stringify_map_te
 target_include_directories(stringify_map_test PRIVATE ${CMAKE_SOURCE_DIR}/src/server/include)
 
 target_link_libraries(stringify_map_test fmt::fmt)
+target_link_libraries(stringify_map_test sqlite3)
 
 add_test(
   NAME stringify_map_test
