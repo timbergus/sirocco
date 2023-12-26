@@ -15,6 +15,7 @@ Database::Database()
 
 Database::~Database()
 {
+  sqlite3_close(db);
 }
 
 void Database::execute_query(std::string query, int (*callback)(void *, int, char **, char **))
@@ -28,6 +29,4 @@ void Database::execute_query(std::string query, int (*callback)(void *, int, cha
     fmt::print("SQL error: {}\n", zErrMsg);
     sqlite3_free(zErrMsg);
   }
-
-  sqlite3_close(db);
 }

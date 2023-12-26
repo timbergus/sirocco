@@ -69,7 +69,8 @@ void Request::parse_request(std::string request)
 
   // Check if we have payload (must exist content type).
 
-  int count = std::count(request_tokens.begin(), request_tokens.end(), "content-type: application/json");
+  int count = std::count(request_tokens.begin(), request_tokens.end(), "Content-Type: application/json") +
+              std::count(request_tokens.begin(), request_tokens.end(), "content-type: application/json");
 
   if (count > 0)
   {

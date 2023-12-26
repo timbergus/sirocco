@@ -45,15 +45,20 @@ static int post_users_callback(
 
 const auto post_users = [](Comms comms)
 {
-  std::cout << comms.request.payload << std::endl;
-  nlohmann::json data = nlohmann::json::parse(comms.request.payload);
+  try
+  {
+    nlohmann::json data = nlohmann::json::parse(comms.request.payload);
 
-  std::string query = fmt::format("INSERT INTO users (name, surname, email) VALUES ('{}', '{}', '{}')",
-                                  static_cast<std::string>(data["name"]),
-                                  static_cast<std::string>(data["surname"]),
-                                  static_cast<std::string>(data["email"]));
+    std::string query = fmt::format("INSERT INTO users (name, surname, email) VALUES ('{}', '{}', '{}')",
+                                    static_cast<std::string>(data["name"]),
+                                    static_cast<std::string>(data["surname"]),
+                                    static_cast<std::string>(data["email"]));
 
-  db.execute_query(query.data(), post_users_callback);
-
-  comms.send_contents(data.dump(4), "json");
+    db.execute_query(query.data(), post_users_callback);
+    comms.send_contents(data.dump(4), "json");
+  }
+  catch (const std::exception &e)
+  {
+    comms.send_contents(fmt::format("<h1>Unexpected server error</h1><br><p>{}</p>", e.what()), "html", 500);
+  }
 };
