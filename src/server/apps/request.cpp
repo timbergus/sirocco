@@ -48,9 +48,6 @@ void Request::parse_request(std::string request)
 
   split(path_query_tokens[0], "/", path_path_tokens);
 
-  std::erase_if(path_path_tokens, [](auto &&str)
-                { return str.length() == 0; });
-
   this->path_tokens = path_path_tokens;
 
   if (path_query_tokens[1].length() > 0)
