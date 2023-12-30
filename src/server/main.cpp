@@ -1,4 +1,5 @@
 #include "actions.h"
+#include "db_actions.h"
 #include "server.h"
 
 int main(int, char **)
@@ -22,6 +23,11 @@ int main(int, char **)
   server.post("/secure", post_secure);
   server.put("/secure", put_secure);
   server.del("/secure", delete_secure);
+
+  // Database access.
+
+  server.get("/users", get_users);
+  server.post("/users", post_users);
 
   server.listening();
 

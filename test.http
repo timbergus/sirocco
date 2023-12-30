@@ -2,6 +2,21 @@
 
 GET http://localhost:3000 HTTP/1.1
 
+### GET User
+
+GET http://localhost:3000/users HTTP/1.1
+
+### POST User
+
+POST http://localhost:3000/users HTTP/1.1
+content-type: application/json
+
+{
+  "name": "Pepe",
+  "surname": "Pepito",
+  "email": "pepe@pepito.com"
+}
+
 ### GET Secure
 
 GET http://localhost:3000/secure?key=1234567&hash=890 HTTP/1.1
