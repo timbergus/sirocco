@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "comms.h"
+#include "fmt/base.h"
 #include "utils.h"
 
 Comms::Comms() { read_env_file("src/server/.env", env); }
@@ -47,19 +48,18 @@ void Comms::bind_socket(int port) {
   sockaddr.sin_port = htons(port);
 
   if (bind(socket_fd, (struct sockaddr *)&sockaddr, sizeof(sockaddr)) < 0) {
-    std::cout << fmt::format("Failed to bind to port {}. Errno: {}\n", port,
-                             errno);
+    fmt::println("Failed to bind to port {}. Errno: {}", port, errno);
     exit(EXIT_FAILURE);
   }
 }
 
 void Comms::listen_connection() {
   if (listen(socket_fd, 10) < 0) {
-    std::cout << fmt::format("Failed to listen on socket. Errno: {}\n", errno);
+    fmt::println("Failed to listen on socket. Errno: {}\n", errno);
     exit(EXIT_FAILURE);
   }
 
-  std::cout << fmt::format("\nListening on http://localhost:{}\n", port);
+  fmt::println("\nListening on http://localhost:{}\n", port);
 }
 
 void Comms::accept_connection() {
@@ -69,7 +69,7 @@ void Comms::accept_connection() {
       accept(socket_fd, (struct sockaddr *)&sockaddr, (socklen_t *)&addrlen);
 
   if (connection < 0) {
-    std::cout << "Failed to grab connection." << std::endl;
+    fmt::println("Failed to grab connection.");
     exit(EXIT_FAILURE);
   }
 }
@@ -83,7 +83,7 @@ void Comms::read_request() {
   int n = read(connection, received_request, sizeof(received_request));
 #endif
   if (n < 0) {
-    std::cout << "Failed reading the message." << std::endl;
+    fmt::println("Failed reading the message.");
     exit(EXIT_FAILURE);
   }
 

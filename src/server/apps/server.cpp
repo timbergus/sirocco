@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "server.h"
 
 Server::Server(std::map<std::string, std::any> options) {
@@ -24,7 +22,7 @@ Server::Server(std::map<std::string, std::any> options) {
 Server::~Server() {
   comms.close_connection();
   comms.close_socket();
-  std::cout << "Closing server." << std::endl;
+  fmt::println("Closing server.");
 }
 
 void Server::listening() {
@@ -104,6 +102,6 @@ void Server::del(std::string request_path,
 
 void Server::log(std::string message) {
   if (debug) {
-    std::cout << message << std::endl;
+    fmt::println("{}", message);
   }
 }
