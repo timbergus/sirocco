@@ -1,31 +1,68 @@
-cmake_minimum_required(VERSION 3.28)
-project(sirocco VERSION 0.1.0 LANGUAGES C CXX)
+cmake_minimum_required(VERSION 4.1.0)
+project(sirocco
+  VERSION 0.1.0
+  DESCRIPTION "Sirocco Project"
+  LANGUAGES C CXX
+)
 
-include(CTest)
-enable_testing()
+set(PROJECT_AUTHOR "Gustavo Muñoz")
 
-set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD 26)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 add_compile_options(-Wall -Wextra -Werror -Wpedantic)
 
 file(GLOB_RECURSE CPP_FILES CONFIGURE_DEPENDS ${CMAKE_SOURCE_DIR}/src/server/apps/*.cpp)
 
-find_package(fmt REQUIRED)
-find_package(nlohmann_json REQUIRED)
+include(FetchContent)
+
+# >>> fmt library download
+FetchContent_Declare(
+  fmt
+  GIT_REPOSITORY https://github.com/fmtlib/fmt.git
+  GIT_TAG 11.2.0
+)
+FetchContent_MakeAvailable(fmt)
+# <<< fmt library download
+
+# >>> nlohmann_json library download
+FetchContent_Declare(
+  nlohmann_json
+  GIT_REPOSITORY https://github.com/nlohmann/json.git
+  GIT_TAG v3.12.0
+)
+FetchContent_MakeAvailable(nlohmann_json)
+# <<< nlohmann_json library download
 
 add_executable(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/src/server/main.cpp ${CPP_FILES})
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/src/server/include)
 
-target_link_libraries(${PROJECT_NAME} fmt::fmt)
-target_link_libraries(${PROJECT_NAME} nlohmann_json::nlohmann_json)
-target_link_libraries(${PROJECT_NAME} sqlite3)
+target_link_libraries(${PROJECT_NAME} PRIVATE
+  fmt::fmt
+  nlohmann_json::nlohmann_json
+  sqlite3
+)
 
-set(CPACK_PROJECT_NAME ${PROJECT_NAME})
-set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
+# >>> CPack
+include(InstallRequiredSystemLibraries)
+
+install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
+
+set(CPACK_PACKAGE_NAME ${PROJECT_NAME})
+set(CPACK_PACKAGE_DESCRIPTION ${PROJECT_DESCRIPTION})
+set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
+set(CPACK_PACKAGE_VENDOR ${PROJECT_AUTHOR})
+set(CPACK_GENERATOR "ZIP")
+set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}")
 include(CPack)
+# <<< CPack
 
-# TESTS
+# >>> Testing
+include(CTest)
+enable_testing()
 
 # SPLIT_TEST
 
@@ -91,3 +128,4 @@ add_test(
   NAME stringify_map_test
   COMMAND $<TARGET_FILE:stringify_map_test>
 )
+# <<< Testing

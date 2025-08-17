@@ -1,7 +1,7 @@
 #pragma once
 
-#include <string>
 #include <map>
+#include <string>
 
 static std::map<int, std::string> status_messages{
     {100, "Continue"},
@@ -50,15 +50,10 @@ static std::map<int, std::string> status_messages{
 };
 
 static std::map<std::string, std::string> content_types{
-    {"html", "text/html"},
-    {"css", "text/css"},
-    {"txt", "text/plain"},
-    {"csv", "text/csv"},
-    {"xml", "text/xml"},
-    {"js", "application/javascript"},
-    {"json", "application/json"},
-    {"jpg", "image/jpeg"},
-    {"jpeg", "image/png"},
-    {"png", "image/png"},
+    {"html", "text/html"},        {"css", "text/css"},
+    {"txt", "text/plain"},        {"csv", "text/csv"},
+    {"xml", "text/xml"},          {"js", "application/javascript"},
+    {"json", "application/json"}, {"jpg", "image/jpeg"},
+    {"jpeg", "image/png"},        {"png", "image/png"},
     {"ico", "image/x-icon"},
 };

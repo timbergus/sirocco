@@ -2,16 +2,24 @@ BUILD=build
 PROJECT=sirocco
 
 init:
-	conan install . --output-folder=$(BUILD) --build=missing && cmake -B $(BUILD)
+	cmake -B $(BUILD) \
+  	-DCMAKE_C_COMPILER=/opt/homebrew/opt/llvm/bin/clang \
+  	-DCMAKE_CXX_COMPILER=/opt/homebrew/opt/llvm/bin/clang++
 
-project:
-	cmake --build $(BUILD)
+project: init
+	cmake --build $(BUILD) --config Release
 
-start:
+start: project
 	./$(BUILD)/$(PROJECT)
 
-test:
+documentation: project
+	cmake --build $(BUILD) --target docs
+
+test: project
 	ctest --test-dir $(BUILD)
 
+package: project documentation
+	cpack -G ZIP --config $(BUILD)/CPackConfig.cmake
+
 clean:
-	rm -rf $(BUILD)
+	rm -rf $(BUILD) .cache docs _CPack* *.zip

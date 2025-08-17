@@ -2,8 +2,7 @@
 #include "db_actions.h"
 #include "server.h"
 
-int main(int, char **)
-{
+int main(int, char **) {
   /**
    * The sever constructor receives an options map with the
    * following keys:

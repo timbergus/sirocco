@@ -1,15 +1,11 @@
 #pragma once
 
-#include <iostream>
-#include <string>
-#include <sqlite3.h>
 #include <fmt/core.h>
 #include <map>
+#include <sqlite3.h>
+#include <string>
 
-#include "utils.h"
-
-class Database
-{
+class Database {
 private:
   sqlite3 *db = nullptr;
   std::map<std::string, std::string> env;

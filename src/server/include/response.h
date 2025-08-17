@@ -1,13 +1,10 @@
 #pragma once
 
+#include <fmt/core.h>
 #include <string>
 #include <string_view>
-#include <fmt/core.h>
 
-#include "http.h"
-
-class Response
-{
+class Response {
 private:
   std::string protocol = "HTTP/1.1";
   int status_code;
