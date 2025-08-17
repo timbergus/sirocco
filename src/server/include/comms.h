@@ -1,28 +1,24 @@
 #pragma once
 
-#include <string>
-#include <map>
 #include <filesystem>
-#include <functional>
-#include <iostream>
-#include <fmt/core.h>
 #include <fmt/color.h>
+#include <fmt/core.h>
+#include <map>
+#include <string>
 
 #ifdef _WIN32
 #include <ws2tcpip.h>
 #pragma comment(lib, "ws2_32.lib")
 #else
-#include <sys/socket.h>
 #include <netinet/in.h>
+#include <sys/socket.h>
 #include <unistd.h>
 #endif
 
 #include "request.h"
 #include "response.h"
-#include "utils.h"
 
-class Comms
-{
+class Comms {
 private:
   std::map<std::string, std::string> env;
 

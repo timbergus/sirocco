@@ -1,15 +1,13 @@
 #pragma once
 
-#include <string>
-#include <map>
 #include <any>
-#include <iostream>
+#include <functional>
+#include <map>
+#include <string>
 
 #include "comms.h"
-#include "utils.h"
 
-class Server
-{
+class Server {
 private:
   Comms comms;
 

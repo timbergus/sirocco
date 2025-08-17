@@ -29,3 +29,6 @@ CMakeUserPresets.json
 
 # Additional files
 Testing
+
+# CMake cache
+.cache/

@@ -1,14 +1,10 @@
 #pragma once
 
+#include <map>
 #include <string>
 #include <vector>
-#include <map>
-#include <algorithm>
 
-#include "utils.h"
-
-class Request
-{
+class Request {
 
 public:
   std::string verb;
